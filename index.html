@@ -1,99 +1,1813 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SIIM — Prototype Inventaris Madrasah</title>
-<style>
-:root{--green:#17684f;--green2:#e9f4ee;--ink:#192b25;--muted:#718078;--line:#e4ebe7;--bg:#f5f8f6;--white:#fff;--amber:#a65d0a;--red:#b43d3d;--shadow:0 8px 26px #173d2910}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.topbar{height:66px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:0 26px;position:sticky;top:0;z-index:5}.brand{font-size:19px;font-weight:850;color:var(--green);letter-spacing:.04em;white-space:nowrap}.brand small{display:block;color:#77867f;font-size:10px;font-weight:500;letter-spacing:.02em}.campus{border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff;color:#34443c}.global-search{margin-left:auto;width:min(320px,35vw);padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#f8faf9}.user{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--green2);color:var(--green);font-weight:700}.shell{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 66px)}aside{background:#fff;border-right:1px solid var(--line);padding:20px 13px}.nav-label{font-size:10px;text-transform:uppercase;color:#98a49e;letter-spacing:.1em;padding:12px}.nav{width:100%;border:0;background:transparent;text-align:left;padding:11px 12px;color:#56665e;border-radius:9px;margin:2px 0}.nav:hover,.nav.active{background:var(--green2);color:var(--green);font-weight:700}.nav .ico{display:inline-block;width:25px}.prototype-note{margin:24px 4px;padding:12px;border-radius:10px;background:#fff7e9;color:#835311;font-size:11px}.main{padding:28px;max-width:1500px;width:100%;margin:0 auto}.pagehead{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:21px}.pagehead h1{font-size:24px;margin:0 0 4px}.muted{color:var(--muted)}.btn{padding:9px 13px;border:1px solid var(--line);border-radius:9px;background:#fff;color:#34443c}.btn:hover{background:#f7faf8}.btn.primary{background:var(--green);color:white;border-color:var(--green);font-weight:650}.btn.danger{color:var(--red)}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.stat,.box{background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow)}.stat{padding:16px 18px}.stat .name{color:var(--muted);font-size:12px}.stat .value{font-size:26px;font-weight:780;margin-top:6px}.stat .caption{font-size:11px;color:#8b9891;margin-top:2px}.two{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:15px}.box{padding:17px}.box h2{font-size:15px;margin:0 0 13px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:13px}.toolbar input,.toolbar select{border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:white;color:#34443c}.toolbar input{min-width:230px;flex:1}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:720px;background:#fff}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid #edf1ee;white-space:nowrap}th{font-size:11px;color:#78867f;background:#fafcfb;font-weight:650}td{font-size:13px}tbody tr:last-child td{border-bottom:0}.badge{display:inline-flex;padding:4px 8px;border-radius:99px;font-size:11px;font-weight:650;background:#eef2ef;color:#56645d}.badge.available{background:#e8f5ed;color:#237046}.badge.loaned{background:#fff3df;color:#96600e}.badge.maintenance{background:#ffeded;color:#ad3c3c}.badge.disposed{background:#ececf1;color:#666578}.badge.good{background:#e8f5ed;color:#237046}.badge.fair{background:#fff3df;color:#96600e}.badge.damaged{background:#ffeded;color:#ad3c3c}.actions{display:flex;gap:5px}.iconbtn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 8px;color:#4c5c54}.empty{text-align:center;color:#84928b;padding:34px}.chart{height:174px;display:flex;align-items:end;gap:14px;padding:20px 12px 6px;border-bottom:1px solid var(--line)}.barwrap{height:100%;flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:7px;color:#728078;font-size:10px}.bar{width:min(42px,80%);background:linear-gradient(#4e9a75,#17684f);border-radius:6px 6px 2px 2px;min-height:4px}.quick{display:flex;gap:8px;flex-wrap:wrap}.activity{padding:10px 0;border-top:1px solid #edf1ee;display:flex;justify-content:space-between;gap:12px}.mobile-nav{display:none}.overlay{position:fixed;inset:0;background:#10251dcc;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.overlay.show{display:flex}.modal{width:min(560px,100%);max-height:92vh;overflow:auto;background:white;border-radius:16px;box-shadow:0 20px 80px #0003}.modalhead{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}.modalhead h2{margin:0;font-size:18px}.x{border:0;background:transparent;font-size:22px;color:#77847e}.form{padding:19px 20px;display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#53635b;font-weight:650}.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:9px;padding:10px 11px;min-width:0}.field textarea{min-height:70px;resize:vertical}.modalfoot{padding:14px 20px 19px;display:flex;justify-content:flex-end;gap:8px}.toast{position:fixed;right:22px;bottom:22px;background:#183d2c;color:white;padding:12px 16px;border-radius:10px;box-shadow:var(--shadow);display:none;z-index:20}.toast.show{display:block}.page{display:none}.page.active{display:block}.mobile-only{display:none}
-@media(max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}aside{display:none}.main{padding:22px;min-width:0}.page,.box,.toolbar,.table-wrap{min-width:0}.table-wrap{width:100%;max-width:100%;overflow-x:auto}.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){html,body{max-width:100%;overflow-x:hidden}.topbar{height:58px;padding:0 14px;gap:11px;width:100%;min-width:0}.brand{flex:0 0 auto}.global-search{width:0;min-width:0;flex:1}.shell{grid-template-columns:minmax(0,1fr);min-height:calc(100vh - 58px);width:100%;min-width:0}.main{padding:19px 14px 88px;min-width:0;width:100%;max-width:100%;overflow-x:hidden}.page{min-width:0;width:100%;max-width:100%}.box,.toolbar,.table-wrap{min-width:0;max-width:100%}.toolbar{width:100%;gap:7px}.toolbar input{min-width:0;width:100%;flex:1 1 100%}.toolbar select{max-width:calc(50% - 5px);min-width:0;flex:1 1 calc(50% - 5px)}.toolbar .btn{flex:0 0 auto;max-width:100%}.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}.table-wrap table{width:max-content;min-width:720px}.pagehead h1{font-size:21px}.pagehead{align-items:flex-start;min-width:0}.pagehead>div{min-width:0}.pagehead .btn{font-size:12px;padding:9px}.grid4{gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}.stat{padding:13px;min-width:0}.stat .value{font-size:22px}.two{grid-template-columns:minmax(0,1fr);gap:10px}.mobile-nav{position:fixed;z-index:6;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#fff;border-top:1px solid var(--line);padding:7px 4px calc(8px + env(safe-area-inset-bottom))}.mobile-nav button{border:0;background:transparent;color:#718078;font-size:10px;min-width:55px}.mobile-nav button span{display:block;font-size:17px;color:var(--green)}.field{grid-column:1/-1}.global-search{font-size:12px}.prototype-note{display:none}.mobile-hide{display:none}}
-.location-tabs{display:flex;gap:7px;border-bottom:1px solid var(--line);margin:-3px 0 17px;padding-bottom:10px;overflow:auto}.loc-tab{white-space:nowrap;border:0;border-radius:8px;padding:9px 13px;background:transparent;color:#64736c}.loc-tab.active{background:var(--green2);color:var(--green);font-weight:700}.loc-card{cursor:pointer;transition:transform .15s,border-color .15s}.loc-card:hover{transform:translateY(-2px);border-color:#91bca5}.location-report{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.mini-stat{padding:14px;background:#f7faf8;border-radius:10px}.mini-stat b{display:block;font-size:20px;margin-top:4px}@media(max-width:560px){.location-report{grid-template-columns:1fr}}
-.import-modal{width:min(900px,100%)}.import-body{padding:16px 20px;max-height:68vh;overflow:auto}.import-file{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px;border:1px dashed #b9cbc0;border-radius:10px;background:#f9fbfa}.import-file a{color:var(--green);font-weight:650;white-space:nowrap}.import-status{padding:11px 13px;margin:12px 0;border-radius:9px;background:#f2f6f3;color:#52635a}.import-status.warn{background:#fff5e4;color:#86550b}.import-status.error{background:#fff0ef;color:#a53b36}.import-preview{overflow:auto;border:1px solid var(--line);border-radius:9px;margin-top:12px}.import-preview table{min-width:760px}.import-preview select{max-width:180px;border:1px solid var(--line);border-radius:7px;padding:6px}.row-error{color:#aa3933;font-size:11px;white-space:normal;max-width:220px}.row-ok{color:#227047;font-size:11px}
-.btn:disabled{opacity:.48;cursor:not-allowed}.import-preview td small{display:block;max-width:180px;overflow:hidden;text-overflow:ellipsis;margin-top:4px}
-.location-explorer{display:grid;grid-template-columns:235px minmax(0,1fr);background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:var(--shadow);min-height:370px}.campus-panel{padding:19px 13px;border-right:1px solid var(--line);background:#fbfcfb}.campus-panel-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#839189;padding:0 10px 12px;font-weight:700}.campus-choice{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;border:0;background:transparent;border-radius:9px;padding:12px 10px;color:#4b5b53;margin:2px 0}.campus-choice:hover{background:#f0f6f2}.campus-choice.active{background:var(--green2);color:var(--green);font-weight:700}.campus-choice small{display:block;color:#84928b;font-size:11px;font-weight:400;margin-top:2px}.campus-choice .chev{font-size:17px}.building-panel{padding:21px 22px}.building-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.building-panel-head h2{margin:0 0 3px;font-size:18px}.building-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.building-grid .stat{min-height:125px}.campus-select-mobile{display:none;border:1px solid var(--line);border-radius:9px;background:#fff;padding:9px 11px}
-@media(max-width:760px){.location-explorer{grid-template-columns:190px minmax(0,1fr)}.building-panel{padding:17px}.building-grid{grid-template-columns:1fr}}
-@media(max-width:560px){.location-explorer{display:block;min-height:0}.campus-panel{display:none}.building-panel{padding:15px}.campus-select-mobile{display:block;max-width:150px}.building-panel-head{align-items:flex-start;gap:10px}.building-panel-head h2{font-size:16px}.building-panel-head .muted{font-size:11px}.building-grid{grid-template-columns:1fr}.building-grid .stat{min-height:0}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIM-GUDANG & KESEHATAN - Sistem Inventaris Terpadu</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- React & ReactDOM CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel CDN for inline JSX transformation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Firebase: sinkronisasi data bersama secara realtime -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* Custom scrollbar for desktop preview */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
 </head>
-<body>
-<header class="topbar"><div class="brand">SIIM<small>Inventaris Madrasah</small></div><input id="globalSearch" class="global-search" placeholder="⌕  Cari aset…" aria-label="Cari aset"><div class="user">A</div></header>
-<div class="shell"><aside><div class="nav-label">Menu utama</div><button class="nav active" data-page="dashboard"><span class="ico">▦</span>Ringkasan</button><button class="nav" data-page="assets"><span class="ico">▤</span>Data aset</button><button class="nav" data-page="loans"><span class="ico">⇄</span>Peminjaman</button><button class="nav" data-page="locations"><span class="ico">⌖</span>Lokasi</button><button class="nav" data-page="reports"><span class="ico">▥</span>Laporan</button><div class="prototype-note"><b>Prototype sekolah</b><br>Data contoh tersimpan lokal di browser ini. Jangan masukkan data pribadi atau data inventaris nyata.</div></aside>
-<main class="main">
-<section class="page active" id="page-dashboard"><div class="pagehead"><div><h1>Ringkasan</h1><div class="muted">Ikhtisar inventaris • data contoh</div></div><button class="btn primary" onclick="openAsset()">＋ Tambah aset</button></div><div class="grid4" id="stats"></div><div class="two"><div class="box"><h2>Aset per kategori</h2><div id="chart" class="chart"></div></div><div class="box"><h2>Aksi cepat</h2><div class="quick"><button class="btn" onclick="openAsset()">＋ Catat aset</button><button class="btn" onclick="switchPage('loans')">⇄ Peminjaman</button><button class="btn" onclick="switchPage('assets')">⌕ Cari aset</button></div><h2 style="margin-top:22px">Aktivitas terbaru</h2><div id="activity"></div></div></div></section>
-<section class="page" id="page-assets"><div class="pagehead"><div><h1>Data aset</h1><div class="muted">Kelola dan temukan barang inventaris</div></div><button class="btn primary" onclick="openAsset()">＋ Tambah aset</button></div><div class="box"><div class="toolbar"><input id="assetSearch" placeholder="Cari nama, kode, atau serial…"><select id="statusFilter"><option value="">Semua status</option><option value="available">Tersedia</option><option value="loaned">Dipinjam</option><option value="maintenance">Perbaikan</option></select><select id="categoryFilter"><option value="">Semua kategori</option></select><button class="btn" onclick="openImport()">⇧ Impor Excel</button><button class="btn" onclick="exportCSV()">⇩ Ekspor CSV</button></div><div class="table-wrap"><table><thead><tr><th>Kode</th><th>Nama aset</th><th>Kategori</th><th>Lokasi</th><th>Kondisi</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="assetRows"></tbody></table></div></div></section>
-<section class="page" id="page-loans"><div class="pagehead"><div><h1>Peminjaman</h1><div class="muted">Catat peminjaman dan kembalikan barang</div></div><button class="btn primary" onclick="openLoan()">＋ Pinjam aset</button></div><div class="box"><div class="toolbar"><input id="loanSearch" placeholder="Cari peminjam atau barang…"></div><div class="table-wrap"><table><thead><tr><th>Peminjam</th><th>Aset</th><th>Tanggal pinjam</th><th>Batas kembali</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="loanRows"></tbody></table></div></div></section>
-<section class="page" id="page-locations"><div class="pagehead"><div><h1>Lokasi</h1><div class="muted">Pilih kampus, lalu buka gedung untuk melihat aset dan aktivitasnya</div></div></div><div class="location-explorer"><aside class="campus-panel"><div class="campus-panel-title">Kampus</div><div id="campusList"></div></aside><div class="building-panel"><div class="building-panel-head"><div><h2 id="selectedCampusTitle">Kampus</h2><div class="muted">Pilih gedung untuk membuka detail</div></div><select class="campus-select-mobile" id="campusSelectMobile" aria-label="Pilih kampus"></select></div><div id="locationCards" class="building-grid"></div></div></div></section>
-<section class="page" id="page-locationDetail"><div class="pagehead"><div><button class="btn" onclick="switchPage('locations')">← Semua lokasi</button><h1 id="locationTitle" style="margin-top:14px">Detail gedung</h1><div class="muted" id="locationSubtitle"></div></div></div><div class="box"><div class="location-tabs"><button class="loc-tab active" data-tab="summary">Ringkasan</button><button class="loc-tab" data-tab="assets">Data aset</button><button class="loc-tab" data-tab="loans">Peminjaman</button><button class="loc-tab" data-tab="reports">Laporan</button></div><div id="locationContent"></div></div></section>
-<section class="page" id="page-reports"><div class="pagehead"><div><h1>Laporan sederhana</h1><div class="muted">Ringkasan dapat diekspor sebagai CSV dari halaman aset</div></div><button class="btn" onclick="exportCSV()">⇩ Ekspor daftar aset</button></div><div class="grid4" id="reportStats"></div><div class="box" style="margin-top:15px"><h2>Catatan penggunaan</h2><p class="muted">Prototype ini menyimpan perubahan pada browser yang digunakan melalui penyimpanan lokal. Data tidak tersinkron antar perangkat dan belum memiliki login, backup, maupun server.</p></div></section>
-</main></div>
-<nav class="mobile-nav"><button data-page="dashboard"><span>⌂</span>Ringkasan</button><button data-page="assets"><span>▤</span>Aset</button><button onclick="openAsset()"><span>＋</span>Tambah</button><button data-page="loans"><span>⇄</span>Pinjam</button><button data-page="locations"><span>⌖</span>Lokasi</button></nav>
-<div class="overlay" id="assetModal"><div class="modal"><div class="modalhead"><h2 id="assetModalTitle">Tambah aset</h2><button class="x" onclick="closeModal('assetModal')">×</button></div><form id="assetForm"><div class="form"><input type="hidden" id="editId"><div class="field"><label>Kode aset *</label><input id="fCode" required placeholder="INV-0001"></div><div class="field"><label>Nama aset *</label><input id="fName" required placeholder="Nama barang"></div><div class="field"><label>Kategori</label><select id="fCategory"></select></div><div class="field"><label>Lokasi</label><select id="fLocation"></select></div><div class="field"><label>Kondisi</label><select id="fCondition"><option value="Baik">Baik</option><option value="Cukup">Cukup</option><option value="Rusak">Rusak</option></select></div><div class="field"><label>Status</label><select id="fStatus"><option value="available">Tersedia</option><option value="loaned">Dipinjam</option><option value="maintenance">Perbaikan</option></select></div><div class="field full"><label>Catatan</label><textarea id="fNote" placeholder="Opsional"></textarea></div></div><div class="modalfoot"><button type="button" class="btn" onclick="closeModal('assetModal')">Batal</button><button class="btn primary">Simpan aset</button></div></form></div></div>
-<div class="overlay" id="loanModal"><div class="modal"><div class="modalhead"><h2>Catat peminjaman</h2><button class="x" onclick="closeModal('loanModal')">×</button></div><form id="loanForm"><div class="form"><div class="field full"><label>Aset *</label><select id="loanAsset" required></select></div><div class="field"><label>Nama peminjam *</label><input id="borrower" required placeholder="Nama peminjam contoh"></div><div class="field"><label>Tanggal pinjam</label><input id="loanDate" type="date" required></div><div class="field"><label>Batas pengembalian</label><input id="dueDate" type="date" required></div><div class="field full"><label>Tujuan</label><input id="purpose" placeholder="Contoh: kegiatan kelas"></div></div><div class="modalfoot"><button type="button" class="btn" onclick="closeModal('loanModal')">Batal</button><button class="btn primary">Simpan peminjaman</button></div></form></div></div>
-<div class="overlay" id="importModal"><div class="modal import-modal"><div class="modalhead"><h2>Impor aset dari Excel</h2><button class="x" onclick="closeModal('importModal')">×</button></div><div class="import-body"><p class="muted">Unggah .xlsx untuk membaca data. Sistem mencocokkan kolom, menandai kategori yang belum dikenal, lalu meminta konfirmasi sebelum menyimpan. Di file contoh, kategori “Audio Visual” sengaja belum ada agar pemetaan bisa dicoba.</p><div class="import-file"><input type="file" id="excelFile" accept=".xlsx,.csv,text/csv"><a href="siim-template-impor.xlsx" download>Unduh contoh Excel</a></div><div id="importStatus" class="import-status">Pilih file Excel atau CSV untuk mulai.</div><div id="importPreview"></div></div><div class="modalfoot"><button class="btn" onclick="closeModal('importModal')">Batal</button><button class="btn primary" id="confirmImport" disabled onclick="commitImport()">Impor data</button></div></div></div>
-<div class="toast" id="toast"></div>
-<script>
-const KEY='siim-prototype-v1';
-const seed={locations:[{campus:'Kampus Utama',building:'Gedung A',room:'Ruang Guru'},{campus:'Kampus Utama',building:'Gedung A',room:'Lab Komputer'},{campus:'Kampus Utama',building:'Gedung B',room:'Perpustakaan'},{campus:'Kampus 2',building:'Gedung C',room:'Ruang Kelas 1'}],assets:[
-{id:'a1',code:'CONTOH-001',name:'Laptop contoh',category:'Elektronik',location:'Kampus Utama · Gedung A · Lab Komputer',condition:'Baik',status:'available',note:'Data fiktif untuk demonstrasi'},
-{id:'a2',code:'CONTOH-002',name:'Proyektor contoh',category:'Elektronik',location:'Kampus Utama · Gedung B · Perpustakaan',condition:'Cukup',status:'loaned',note:'Data fiktif untuk demonstrasi'},
-{id:'a3',code:'CONTOH-003',name:'Meja contoh',category:'Furnitur',location:'Kampus Utama · Gedung A · Ruang Guru',condition:'Baik',status:'available',note:'Data fiktif untuk demonstrasi'},
-{id:'a4',code:'CONTOH-004',name:'Mikroskop contoh',category:'Laboratorium',location:'Kampus 2 · Gedung C · Ruang Kelas 1',condition:'Rusak',status:'maintenance',note:'Data fiktif untuk demonstrasi'},
-{id:'a5',code:'CONTOH-005',name:'Rak buku contoh',category:'Furnitur',location:'Kampus Utama · Gedung B · Perpustakaan',condition:'Baik',status:'available',note:'Data fiktif untuk demonstrasi'}],loans:[{id:'l1',assetId:'a2',borrower:'Peminjam contoh',date:'2026-10-30',due:'2026-11-03',purpose:'Kegiatan kelas',returned:false}]};
-let data;try{data=JSON.parse(localStorage.getItem(KEY))||structuredClone(seed)}catch{data=structuredClone(seed)}let selectedBuilding=null;let selectedLocationTab='summary';let selectedLocationCampus='';
-const $=id=>document.getElementById(id);const statuses={available:'Tersedia',loaned:'Dipinjam',maintenance:'Perbaikan',disposed:'Dihapus'};
-function save(){localStorage.setItem(KEY,JSON.stringify(data));render();renderBuildingCards()}
-function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2400)}
-function badge(s){return `<span class="badge ${s}">${statuses[s]||s}</span>`}
-function switchPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$('page-'+name).classList.add('active');document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.page===name));window.scrollTo(0,0);render();renderBuildingCards()}
-document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.page)));
-document.addEventListener('click',e=>{const tab=e.target.closest('.loc-tab');if(tab){selectedLocationTab=tab.dataset.tab;renderLocationDetail()}const campus=e.target.closest('[data-campus]');if(campus){selectedLocationCampus=campus.dataset.campus;renderBuildingCards()}});
-$('campusSelectMobile').addEventListener('change',e=>{selectedLocationCampus=e.target.value;renderBuildingCards()});
-function render(){
- const cats=[...new Set(data.assets.map(a=>a.category))].sort();const selectedCategory=$('categoryFilter').value;$('categoryFilter').innerHTML='<option value="">Semua kategori</option>'+cats.map(c=>`<option>${esc(c)}</option>`).join('');$('categoryFilter').value=cats.includes(selectedCategory)?selectedCategory:'';$('fCategory').innerHTML=cats.map(c=>`<option>${esc(c)}</option>`).join('');
- $('fLocation').innerHTML=data.locations.map(l=>`<option>${esc(l.campus+' · '+l.building+' · '+l.room)}</option>`).join('');
- const count=s=>data.assets.filter(a=>a.status===s).length;const statHTML=[['Total aset',data.assets.length],['Tersedia',count('available')],['Dipinjam',count('loaned')],['Perlu perhatian',count('maintenance')]].map(x=>`<article class="stat"><div class="name">${x[0]}</div><div class="value">${x[1]}</div><div class="caption">Data contoh lokal</div></article>`).join('');$('stats').innerHTML=statHTML;$('reportStats').innerHTML=statHTML;
- let filtered=data.assets.filter(a=>{let q=($('assetSearch').value+' '+$('globalSearch').value).trim().toLowerCase();return(!q||(a.name+' '+a.code+' '+(a.serial||'')).toLowerCase().includes(q))&&(!$('statusFilter').value||a.status===$('statusFilter').value)&&(!$('categoryFilter').value||a.category===$('categoryFilter').value)});
- $('assetRows').innerHTML=filtered.length?filtered.map(a=>`<tr><td><b>${esc(a.code)}</b></td><td>${esc(a.name)}</td><td>${esc(a.category)}</td><td>${esc(a.location)}</td><td><span class="badge ${a.condition==='Baik'?'good':a.condition==='Cukup'?'fair':'damaged'}">${esc(a.condition)}</span></td><td>${badge(a.status)}</td><td><div class="actions"><button class="iconbtn" title="Ubah" onclick="openAsset('${a.id}')">✎</button><button class="iconbtn" title="Hapus" onclick="deleteAsset('${a.id}')">×</button></div></td></tr>`).join(''):'<tr><td colspan="7" class="empty">Tidak ada aset yang cocok.</td></tr>';
- const catCounts=cats.map(c=>[c,data.assets.filter(a=>a.category===c).length]);const max=Math.max(1,...catCounts.map(c=>c[1]));$('chart').innerHTML=catCounts.length?catCounts.map(([c,n])=>`<div class="barwrap"><span>${n}</span><div class="bar" style="height:${Math.max(6,n/max*100)}%"></div><span>${esc(c)}</span></div>`).join(''):'<span class="muted">Belum ada data</span>';
- $('activity').innerHTML=`<div class="activity"><span>${data.assets.length} aset contoh terdaftar</span><span class="muted">Ringkasan</span></div><div class="activity"><span>${data.loans.filter(l=>!l.returned).length} peminjaman aktif</span><span class="muted">Peminjaman</span></div>`;
- $('locationCards').innerHTML=data.locations.map(l=>`<article class="stat"><div class="name">${esc(l.campus)}</div><div class="value" style="font-size:17px">${esc(l.building)}</div><div class="caption">${esc(l.room)} · ${data.assets.filter(a=>a.location===l.campus+' · '+l.building+' · '+l.room).length} aset</div></article>`).join('');
- const activeAssets=data.assets.filter(a=>a.status==='available');$('loanAsset').innerHTML=activeAssets.map(a=>`<option value="${a.id}">${esc(a.name)} · ${esc(a.code)}</option>`).join('');if(!activeAssets.length)$('loanAsset').innerHTML='<option value="">Tidak ada aset tersedia</option>';
- const lq=$('loanSearch').value.toLowerCase();const loans=data.loans.filter(l=>(l.borrower+' '+(data.assets.find(a=>a.id===l.assetId)?.name||'')).toLowerCase().includes(lq));$('loanRows').innerHTML=loans.length?loans.map(l=>{let a=data.assets.find(x=>x.id===l.assetId);return `<tr><td>${esc(l.borrower)}</td><td>${esc(a?.name||'Aset dihapus')}</td><td>${esc(l.date)}</td><td>${esc(l.due)}</td><td>${l.returned?'<span class="badge good">Dikembalikan</span>':badge('loaned')}</td><td>${l.returned?'—':`<button class="btn" onclick="returnLoan('${l.id}')">Kembalikan</button>`}</td></tr>`}).join(''):'<tr><td colspan="6" class="empty">Belum ada peminjaman.</td></tr>';
-}
-function renderBuildingCards(){const campuses=[...new Set(data.locations.map(l=>l.campus))];if(!selectedLocationCampus||!campuses.includes(selectedLocationCampus))selectedLocationCampus=campuses[0]||'';$('selectedCampusTitle').textContent=selectedLocationCampus||'Belum ada kampus';$('campusList').innerHTML=campuses.map(c=>{let count=data.locations.filter(l=>l.campus===c).length;return `<button class="campus-choice ${c===selectedLocationCampus?'active':''}" data-campus="${esc(c)}"><span>${esc(c)}<small>${count} lokasi</small></span><span class="chev">›</span></button>`}).join('');$('campusSelectMobile').innerHTML=campuses.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');$('campusSelectMobile').value=selectedLocationCampus;let buildings=[...new Map(data.locations.filter(l=>l.campus===selectedLocationCampus).map(l=>[l.campus+'|'+l.building,{campus:l.campus,building:l.building}])).values()];window._siimBuildings=buildings;$('locationCards').innerHTML=buildings.length?buildings.map((b,i)=>{let rooms=data.locations.filter(l=>l.campus===b.campus&&l.building===b.building);let count=data.assets.filter(a=>a.location.startsWith(b.campus)&&a.location.includes(b.building)).length;return `<article class="stat loc-card" role="button" tabindex="0" onclick="openBuilding(${i})" onkeydown="if(event.key==='Enter')openBuilding(${i})"><div class="name">${esc(b.campus)}</div><div class="value" style="font-size:18px">${esc(b.building)}</div><div class="caption">${rooms.length} ruang · ${count} aset</div><div class="caption" style="color:var(--green);margin-top:9px">Buka detail →</div></article>`}).join(''):'<div class="empty">Belum ada gedung di kampus ini.</div>'}
-function openBuilding(index){selectedBuilding=window._siimBuildings[index];selectedLocationTab='summary';$('locationTitle').textContent=selectedBuilding.building;$('locationSubtitle').textContent=selectedBuilding.campus+' · data contoh';switchPage('locationDetail');renderLocationDetail()}
-function renderLocationDetail(){if(!selectedBuilding)return;document.querySelectorAll('.loc-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===selectedLocationTab));let assets=data.assets.filter(a=>a.location.startsWith(selectedBuilding.campus)&&a.location.includes(selectedBuilding.building));let ids=assets.map(a=>a.id);let loans=data.loans.filter(l=>ids.includes(l.assetId));let rooms=data.locations.filter(l=>l.campus===selectedBuilding.campus&&l.building===selectedBuilding.building);let n=s=>assets.filter(a=>a.status===s).length;let html='';
-if(selectedLocationTab==='summary'){let categoryCounts=[...new Set(assets.map(a=>a.category))].map(c=>[c,assets.filter(a=>a.category===c).length]);let maxCategory=Math.max(1,...categoryCounts.map(x=>x[1]));html=`<div class="grid4">${[['Total aset',assets.length],['Tersedia',n('available')],['Dipinjam',n('loaned')],['Perbaikan',n('maintenance')]].map(x=>`<article class="stat"><div class="name">${x[0]}</div><div class="value">${x[1]}</div></article>`).join('')}</div><h2 style="font-size:15px;margin:20px 0 10px">Aset per kategori</h2>${categoryCounts.length?`<div class="chart">${categoryCounts.map(([c,count])=>`<div class="barwrap"><span>${count}</span><div class="bar" style="height:${Math.max(6,count/maxCategory*100)}%"></div><span>${esc(c)}</span></div>`).join('')}</div>`:'<div class="empty">Belum ada aset untuk ditampilkan.</div>'}<h2 style="font-size:15px;margin:20px 0 10px">Ruang di gedung</h2><div class="quick">${rooms.map(r=>`<span class="badge">${esc(r.room)} · ${assets.filter(a=>a.location.includes(r.room)).length} aset</span>`).join('')}</div>`}
-if(selectedLocationTab==='assets')html=`<div class="toolbar"><input id="buildingAssetSearch" placeholder="Cari aset di gedung ini…"><button class="btn" onclick="exportBuildingCSV()">⇩ Ekspor CSV</button></div>${assetTable(assets)}`;
-if(selectedLocationTab==='loans')html=loans.length?`<div class="table-wrap"><table><thead><tr><th>Peminjam</th><th>Aset</th><th>Mulai</th><th>Batas kembali</th><th>Status</th></tr></thead><tbody>${loans.map(l=>`<tr><td>${esc(l.borrower)}</td><td>${esc(data.assets.find(a=>a.id===l.assetId)?.name||'Aset dihapus')}</td><td>${esc(l.date)}</td><td>${esc(l.due)}</td><td>${l.returned?'<span class="badge good">Dikembalikan</span>':badge('loaned')}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Belum ada catatan peminjaman untuk gedung ini.</div>';
-if(selectedLocationTab==='reports'){let cats=[...new Set(assets.map(a=>a.category))];html=`<div class="location-report"><div class="mini-stat">Total aset<b>${assets.length}</b></div><div class="mini-stat">Kondisi baik<b>${assets.filter(a=>a.condition==='Baik').length}</b></div><div class="mini-stat">Pinjaman aktif<b>${loans.filter(l=>!l.returned).length}</b></div></div><h2 style="font-size:15px;margin:20px 0 10px">Rincian per kategori</h2>${cats.length?`<div class="table-wrap"><table><thead><tr><th>Kategori</th><th>Total</th><th>Tersedia</th><th>Dipinjam</th><th>Perbaikan</th></tr></thead><tbody>${cats.map(c=>`<tr><td>${esc(c)}</td><td>${assets.filter(a=>a.category===c).length}</td><td>${assets.filter(a=>a.category===c&&a.status==='available').length}</td><td>${assets.filter(a=>a.category===c&&a.status==='loaned').length}</td><td>${assets.filter(a=>a.category===c&&a.status==='maintenance').length}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Belum ada aset untuk dihitung.</div>'}`}
-$('locationContent').innerHTML=html;if(selectedLocationTab==='assets')$('buildingAssetSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();let filtered=assets.filter(a=>(a.name+' '+a.code+' '+a.category).toLowerCase().includes(q));let wrap=$('locationContent').querySelector('.table-wrap');if(wrap)wrap.outerHTML=assetTable(filtered)})}
-function assetTable(list){return list.length?`<div class="table-wrap"><table><thead><tr><th>Kode</th><th>Nama aset</th><th>Kategori</th><th>Ruang</th><th>Kondisi</th><th>Status</th></tr></thead><tbody>${list.map(a=>`<tr><td>${esc(a.code)}</td><td>${esc(a.name)}</td><td>${esc(a.category)}</td><td>${esc(a.location.split(' Â· ').slice(-1)[0])}</td><td>${esc(a.condition)}</td><td>${badge(a.status)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Belum ada aset di gedung ini.</div>'}
-function exportBuildingCSV(){let assets=data.assets.filter(a=>a.location.startsWith(selectedBuilding.campus)&&a.location.includes(selectedBuilding.building));let rows=[['Kode','Nama','Kategori','Lokasi','Kondisi','Status'],...assets.map(a=>[a.code,a.name,a.category,a.location,a.condition,statuses[a.status]])];let csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');let link=document.createElement('a');link.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));link.download='siim-laporan-gedung.csv';link.click();URL.revokeObjectURL(link.href)}
-function openAsset(id){$('assetForm').reset();$('editId').value=id||'';$('assetModalTitle').textContent=id?'Ubah aset':'Tambah aset';if(id){let a=data.assets.find(x=>x.id===id);$('fCode').value=a.code;$('fName').value=a.name;$('fCategory').value=a.category;$('fLocation').value=a.location;$('fCondition').value=a.condition;$('fStatus').value=a.status;$('fNote').value=a.note||''}else{$('fCode').value='';$('fName').value='';$('fNote').value=''}$('assetModal').classList.add('show')}
-$('assetForm').addEventListener('submit',e=>{e.preventDefault();let id=$('editId').value,code=$('fCode').value.trim();if(data.assets.some(a=>a.code.toLowerCase()===code.toLowerCase()&&a.id!==id)){toast('Kode aset sudah digunakan.');return}let obj={id:id||crypto.randomUUID(),code,name:$('fName').value.trim(),category:$('fCategory').value||'Lainnya',location:$('fLocation').value,condition:$('fCondition').value,status:$('fStatus').value,note:$('fNote').value.trim()};if(id)data.assets[data.assets.findIndex(a=>a.id===id)]=obj;else data.assets.unshift(obj);closeModal('assetModal');save();toast(id?'Aset berhasil diperbarui':'Aset berhasil ditambahkan')});
-function deleteAsset(id){let a=data.assets.find(x=>x.id===id);if(!a)return;if(!confirm(`Hapus ${a.name} dari data prototype?`))return;data.assets=data.assets.filter(x=>x.id!==id);data.loans=data.loans.filter(l=>l.assetId!==id);save();toast('Aset dihapus dari data lokal')}
-function openLoan(){if(!data.assets.some(a=>a.status==='available')){toast('Belum ada aset berstatus tersedia.');return}$('loanForm').reset();let d=new Date().toISOString().slice(0,10);$('loanDate').value=d;$('dueDate').value=d;$('loanModal').classList.add('show')}
-$('loanForm').addEventListener('submit',e=>{e.preventDefault();let id=$('loanAsset').value,a=data.assets.find(x=>x.id===id);if(!a||a.status!=='available'){toast('Aset tidak tersedia.');return}data.loans.unshift({id:crypto.randomUUID(),assetId:id,borrower:$('borrower').value.trim(),date:$('loanDate').value,due:$('dueDate').value,purpose:$('purpose').value,returned:false});a.status='loaned';closeModal('loanModal');save();toast('Peminjaman dicatat')});
-function returnLoan(id){let l=data.loans.find(x=>x.id===id),a=data.assets.find(x=>x.id===l?.assetId);if(!l||!a)return;l.returned=true;a.status='available';save();toast('Pengembalian dicatat; aset tersedia')}
-function closeModal(id){$(id).classList.remove('show')}
-document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('show')}));
-function exportCSV(){let rows=[['Kode','Nama','Kategori','Lokasi','Kondisi','Status','Catatan'],...data.assets.map(a=>[a.code,a.name,a.category,a.location,a.condition,statuses[a.status],a.note||''])];let csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='siim-daftar-aset-contoh.csv';a.click();URL.revokeObjectURL(a.href)}
-let pendingImports=[];
-function openImport(){pendingImports=[];$('excelFile').value='';$('importPreview').innerHTML='';$('importStatus').className='import-status';$('importStatus').textContent='Pilih file Excel atau CSV untuk mulai.';$('confirmImport').disabled=true;$('importModal').classList.add('show')}
-function parseCSV(text){let rows=[],row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){let c=text[i];if(quoted){if(c==='"'&&text[i+1]==='"'){cell+='"';i++}else if(c==='"')quoted=false;else cell+=c}else if(c==='"')quoted=true;else if(c===','){row.push(cell);cell=''}else if(c==='\n'){row.push(cell);rows.push(row);row=[];cell=''}else if(c!=='\r')cell+=c}if(cell||row.length){row.push(cell);rows.push(row)}return rows.filter(r=>r.some(v=>String(v).trim()))}
-async function unzipEntry(bytes,wanted){let view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength),eocd=-1;for(let i=bytes.length-22;i>=Math.max(0,bytes.length-65558);i--){if(view.getUint32(i,true)===0x06054b50){eocd=i;break}}if(eocd<0)throw Error('Struktur file Excel tidak dikenali.');let count=view.getUint16(eocd+10,true),pos=view.getUint32(eocd+16,true);for(let i=0;i<count;i++){if(view.getUint32(pos,true)!==0x02014b50)break;let method=view.getUint16(pos+10,true),size=view.getUint32(pos+20,true),nameLen=view.getUint16(pos+28,true),extraLen=view.getUint16(pos+30,true),commentLen=view.getUint16(pos+32,true),local=view.getUint32(pos+42,true),name=new TextDecoder().decode(bytes.slice(pos+46,pos+46+nameLen));if(name===wanted){let localName=view.getUint16(local+26,true),localExtra=view.getUint16(local+28,true),start=local+30+localName+localExtra,compressed=bytes.slice(start,start+size);if(method===0)return compressed;if(method===8){if(!window.DecompressionStream)throw Error('Browser tidak mendukung pembacaan Excel langsung. Coba simpan sebagai CSV.');let stream=new Blob([compressed]).stream().pipeThrough(new DecompressionStream('deflate-raw'));return new Uint8Array(await new Response(stream).arrayBuffer())}throw Error('Metode kompresi Excel belum didukung.')}pos+=46+nameLen+extraLen+commentLen}return null}
-async function readXlsx(buffer){let bytes=new Uint8Array(buffer),decoder=new TextDecoder(),files={};for(let p of ['xl/workbook.xml','xl/_rels/workbook.xml.rels','xl/sharedStrings.xml','xl/worksheets/sheet1.xml'])files[p]=await unzipEntry(bytes,p);if(!files['xl/worksheets/sheet1.xml'])throw Error('Sheet pertama tidak ditemukan di file Excel.');let parseXml=raw=>new DOMParser().parseFromString(decoder.decode(raw),'application/xml');let shared=[];if(files['xl/sharedStrings.xml']){let doc=parseXml(files['xl/sharedStrings.xml']);shared=[...doc.getElementsByTagName('si')].map(si=>[...si.getElementsByTagName('t')].map(t=>t.textContent).join(''))}let doc=parseXml(files['xl/worksheets/sheet1.xml']);let rows=[];for(let r of [...doc.getElementsByTagName('row')]){let values=[];for(let c of [...r.getElementsByTagName('c')]){let ref=c.getAttribute('r')||'',letters=ref.match(/[A-Z]+/i)?.[0]||'A',col=0;for(let ch of letters.toUpperCase())col=col*26+ch.charCodeAt(0)-64;col--;let type=c.getAttribute('t'),v=c.getElementsByTagName('v')[0]?.textContent||'';let value=type==='s'?(shared[Number(v)]??''):type==='inlineStr'?[...c.getElementsByTagName('t')].map(t=>t.textContent).join(''):v;values[col]=value}rows.push(values.map(v=>v??''))}return rows}
-function normHeader(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim()}
-function processImportRows(rows){if(rows.length<2)throw Error('File tidak berisi baris data.');let headers=rows[0].map(normHeader),aliases={code:['kode aset','kode','asset code','asset id','id aset'],name:['nama barang','nama aset','nama','name','item name'],category:['kategori','category','jenis barang'],location:['lokasi','ruang','lokasi ruang','location','room'],condition:['kondisi','condition'],date:['tanggal perolehan','tanggal pembelian','tanggal','acquisition date'],cost:['nilai perolehan','harga perolehan','harga','nilai','cost','price']},col={};for(let key in aliases)col[key]=headers.findIndex(h=>aliases[key].includes(h));if(col.code<0||col.name<0)throw Error('Kolom wajib Kode Aset dan Nama Barang belum ditemukan. Gunakan template Excel.');let known=[...new Set(data.assets.map(a=>a.category))];pendingImports=rows.slice(1).map((r,i)=>{let code=String(r[col.code]||'').trim(),name=String(r[col.name]||'').trim(),sourceCategory=String(r[col.category]||'').trim(),location=String(r[col.location]||'').trim(),condition=String(r[col.condition]||'Baik').trim()||'Baik';let matchedLocation=data.locations.find(l=>location.toLowerCase()===`${l.campus} · ${l.building} · ${l.room}`.toLowerCase()||location.toLowerCase()===l.room.toLowerCase());let cat=known.find(c=>c.toLowerCase()===sourceCategory.toLowerCase());let error=!code?'Kode kosong':!name?'Nama barang kosong':data.assets.some(a=>a.code.toLowerCase()===code.toLowerCase())?'Kode sudah terdaftar':'';let date=col.date>=0?String(r[col.date]||'').trim():'';let cost=col.cost>=0?String(r[col.cost]||'').replace(/[,$\s]/g,''):'';return {line:i+2,code,name,sourceCategory,category:cat||'',newCategory:!cat,location:matchedLocation?`${matchedLocation.campus} · ${matchedLocation.building} · ${matchedLocation.room}`:'',sourceLocation:location,condition,date,cost,error}});let unknown=[...new Set(pendingImports.filter(x=>x.newCategory).map(x=>x.sourceCategory).filter(Boolean))];let errors=pendingImports.filter(x=>x.error).length;$('importStatus').className='import-status'+(unknown.length||errors?' warn':'');$('importStatus').textContent=`${pendingImports.length} baris dibaca • ${unknown.length} kategori perlu dipetakan • ${errors} baris bermasalah. Tinjau kategori dan data sebelum impor.`;renderImportPreview()}
-function normalizePlace(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'')}
-function renderImportPreview(){let categories=[...new Set(data.assets.map(a=>a.category))],locations=data.locations.map(l=>`${l.campus} · ${l.building} · ${l.room}`);$('importPreview').innerHTML=`<div class="import-preview"><table><thead><tr><th>Baris</th><th>Kode</th><th>Nama barang</th><th>Kategori di file → kategori SIIM</th><th>Lokasi</th><th>Status pemeriksaan</th></tr></thead><tbody>${pendingImports.map((x,i)=>`<tr><td>${x.line}</td><td>${esc(x.code)}</td><td>${esc(x.name)}</td><td>${x.newCategory?`<span>${esc(x.sourceCategory||'(kosong)')}</span><select data-category-row="${i}"><option value="">Pilih kategori…</option>${categories.map(c=>`<option value="${esc(c)}" ${x.category===c?'selected':''}>${esc(c)}</option>`).join('')}<option value="__new__" ${x.category===x.sourceCategory?'selected':''}>Tambahkan kategori baru “${esc(x.sourceCategory)}”</option></select>`:`${esc(x.sourceCategory||'—')} ${x.category?'→ '+esc(x.category):''}`}</td><td>${x.location?esc(x.location):`<select data-location-row="${i}"><option value="">Pilih lokasi…</option>${locations.map(l=>`<option value="${esc(l)}">${esc(l)}</option>`).join('')}</select><small class="muted">File: ${esc(x.sourceLocation||'—')}</small>`}</td><td>${x.error?`<span class="row-error">${esc(x.error)}</span>`:x.newCategory&&!x.category?'<span class="row-error">Kategori perlu dipilih</span>':!x.location?'<span class="row-error">Lokasi perlu dipilih</span>':'<span class="row-ok">Siap diimpor</span>'}</td></tr>`).join('')}</tbody></table></div>`;document.querySelectorAll('[data-category-row]').forEach(sel=>sel.addEventListener('change',()=>{let x=pendingImports[Number(sel.dataset.categoryRow)];x.category=sel.value==='__new__'?x.sourceCategory:sel.value;renderImportPreview();updateImportButton()}));document.querySelectorAll('[data-location-row]').forEach(sel=>sel.addEventListener('change',()=>{pendingImports[Number(sel.dataset.locationRow)].location=sel.value;renderImportPreview();updateImportButton()}));updateImportButton()}
-function updateImportButton(){let ready=pendingImports.filter(x=>!x.error&&x.location&&(!x.newCategory||x.category)),categoryPending=pendingImports.filter(x=>x.newCategory&&!x.category).length,locationPending=pendingImports.filter(x=>!x.location&&!x.error).length,errors=pendingImports.filter(x=>x.error).length;$('confirmImport').disabled=ready.length===0;$('confirmImport').textContent=ready.length?`Impor ${ready.length} baris`:'Selesaikan pemetaan';if(pendingImports.length){$('importStatus').className='import-status'+(categoryPending||locationPending||errors?' warn':'');$('importStatus').textContent=`${pendingImports.length} baris dibaca • ${categoryPending} kategori perlu dipetakan • ${locationPending} lokasi perlu dipilih • ${errors} baris bermasalah. Baris bermasalah tidak akan diimpor.`}}
-function commitImport(){let ready=pendingImports.filter(x=>!x.error&&x.location&&(!x.newCategory||x.category));if(!ready.length)return;for(let x of ready)data.assets.push({id:crypto.randomUUID(),code:x.code,name:x.name,category:x.category||x.sourceCategory,location:x.location,condition:['Baik','Cukup','Rusak'].includes(x.condition)?x.condition:'Baik',status:'available',acquisitionDate:x.date||'',acquisitionCost:Number(x.cost)||null,note:`Diimpor dari Excel (baris ${x.line})`});save();closeModal('importModal');toast(`${ready.length} aset berhasil diimpor`)}
-async function loadImportFile(file){if(!file)return;$('importStatus').className='import-status';$('importStatus').textContent='Membaca file…';$('confirmImport').disabled=true;try{let rows;if(file.name.toLowerCase().endsWith('.csv'))rows=parseCSV(await file.text());else if(file.name.toLowerCase().endsWith('.xlsx'))rows=await readXlsx(await file.arrayBuffer());else throw Error('Format belum didukung. Gunakan .xlsx atau .csv.');if(rows.length){let headers=rows[0].map(normHeader),li=headers.findIndex(h=>['lokasi','ruang','lokasi ruang','location','room'].includes(h));if(li>=0){for(let row of rows.slice(1)){let source=normalizePlace(row[li]);let match=data.locations.find(l=>source===normalizePlace(`${l.campus} ${l.building} ${l.room}`)||source===normalizePlace(l.room));if(match)row[li]=`${match.campus} · ${match.building} · ${match.room}`}}}processImportRows(rows)}catch(e){pendingImports=[];$('importPreview').innerHTML='';$('importStatus').className='import-status error';$('importStatus').textContent=e.message||'File gagal dibaca.'}}
-$('excelFile').addEventListener('change',e=>loadImportFile(e.target.files[0]));
-['assetSearch','globalSearch','loanSearch'].forEach(id=>$(id).addEventListener('input',render));
-['statusFilter','categoryFilter'].forEach(id=>$(id).addEventListener('change',render));
-render();renderBuildingCards();
-</script></body></html>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-blue-500 selection:text-white">
+  
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo, useRef } = React;
+
+    // Helper component for rendering Lucide SVG icons safely
+    const Icon = ({ name, className = "w-5 h-5", ...props }) => {
+      const [svgContent, setSvgContent] = useState('');
+
+      useEffect(() => {
+        if (window.lucide && window.lucide.icons && window.lucide.icons[name]) {
+          const iconSvg = window.lucide.createIcons({
+            icons: { [name]: window.lucide.icons[name] },
+            nameAttr: 'data-lucide'
+          });
+        }
+      }, [name]);
+
+      // Fallback SVG rendering logic using lucide DOM elements
+      return (
+        <i data-lucide={name} className={className} {...props}></i>
+      );
+    };
+
+    // ==========================================
+    // MOCK DATA AWAL (INITIAL STATE)
+    // ==========================================
+    const INITIAL_ITEMS = [
+      { id: 'ITM-001', name: 'Proyektor Epson EB-X400', category: 'Elektronik', brand: 'Epson', condition: 'Baik', stock: 5, canBorrow: true, location: 'Gudang Utama - Rak A1' },
+      { id: 'ITM-002', name: 'Laptop Dell Latitude 3420', category: 'Elektronik', brand: 'Dell', condition: 'Baik', stock: 12, canBorrow: true, location: 'Ruang IT - Lemari 2' },
+      { id: 'ITM-003', name: 'Kursi Lipat Chitose', category: 'Mebel', brand: 'Chitose', condition: 'Baik', stock: 45, canBorrow: true, location: 'Gudang B - Sektor 3' },
+      { id: 'ITM-004', name: 'Kamera DSLR Canon EOS 80D', category: 'Elektronik', brand: 'Canon', condition: 'Rusak Ringan', stock: 2, canBorrow: false, location: 'Studio Foto' },
+      { id: 'ITM-005', name: 'Sound System Portable Baretone', category: 'Elektronik', brand: 'Baretone', condition: 'Baik', stock: 3, canBorrow: true, location: 'Gudang Utama - Rak C2' },
+      { id: 'ITM-006', name: 'Papan Tulis Whiteboard 120x240', category: 'Peralatan', brand: 'Sakana', condition: 'Baik', stock: 8, canBorrow: true, location: 'Gudang B - Sektor 1' },
+      { id: 'ITM-007', name: 'Genset Honda 3000 Watt', category: 'Peralatan', brand: 'Honda', condition: 'Rusak Berat', stock: 1, canBorrow: false, location: 'Bengkel Servis' },
+    ];
+
+    const INITIAL_MEDICINES = [
+      { id: 'MED-001', name: 'Paracetamol 500mg', type: 'Tablet', brand: 'Kimia Farma', dosage: '500 mg', stock: 150, expiryDate: '2027-05-20', condition: 'Baik', location: 'Lemari Obat A - Rak 1' },
+      { id: 'MED-002', name: 'Amoxicillin 500mg', type: 'Tablet', brand: 'Kalbe', dosage: '500 mg', stock: 4, expiryDate: '2026-11-25', condition: 'Baik', location: 'Lemari Obat A - Rak 2' },
+      { id: 'MED-003', name: 'Batuk Sirup OBH Combi', type: 'Sirup', brand: 'Combiphar', dosage: '100 ml', stock: 18, expiryDate: '2026-11-15', condition: 'Baik', location: 'Lemari Obat B - Shelf Top' },
+      { id: 'MED-004', name: 'Betadine Antiseptik Solution', type: 'Salep/Cair', brand: 'Mahakam', dosage: '60 ml', stock: 25, expiryDate: '2028-01-10', condition: 'Baik', location: 'Kotak P3K Utama' },
+      { id: 'MED-005', name: 'Tensimeter Digital Omron', type: 'Alat Medis', brand: 'Omron', dosage: '1 Unit', stock: 3, expiryDate: '2030-12-31', condition: 'Baik', location: 'Kotak Alkes C' },
+      { id: 'MED-006', name: 'Salep Bioplacenton 15g', type: 'Salep/Cair', brand: 'Kalbe', dosage: '15 gram', stock: 2, expiryDate: '2026-10-01', condition: 'Expired', location: 'Kotak P3K 2' },
+      { id: 'MED-007', name: 'Kain Kasa Steril 16x16', type: 'Alat Medis', brand: 'Husada', dosage: 'Box isi 10', stock: 40, expiryDate: '2029-08-15', condition: 'Baik', location: 'Lemari B - Alkes' },
+    ];
+
+    const INITIAL_TRANSACTIONS = [
+      { id: 'TRX-1001', date: '2026-10-28 09:30', itemType: 'Umum', itemName: 'Proyektor Epson EB-X400', type: 'Peminjaman', quantity: 1, handler: 'Budi Santoso', contact: '0812-3456-7890', returnPlan: '2026-11-01', status: 'Dipinjam', notes: 'Untuk Acara Seminar Kampus' },
+      { id: 'TRX-1002', date: '2026-10-29 14:15', itemType: 'Kesehatan', itemName: 'Paracetamol 500mg', type: 'Distribusi Obat', quantity: 10, handler: 'Siti Aminah', contact: '-', returnPlan: '-', status: 'Selesai', notes: 'Keluhan Demam & Pusing Karyawan' },
+      { id: 'TRX-1003', date: '2026-10-30 11:00', itemType: 'Umum', itemName: 'Kursi Lipat Chitose', type: 'Barang Masuk', quantity: 20, handler: 'Admin Gudang', contact: '-', returnPlan: '-', status: 'Selesai', notes: 'Pengadaan Baru APBD 2026' },
+      { id: 'TRX-1004', date: '2026-10-31 16:45', itemType: 'Kesehatan', itemName: 'Betadine Antiseptik Solution', type: 'Distribusi Obat', quantity: 2, handler: 'Rudi Hermawan', contact: '-', returnPlan: '-', status: 'Selesai', notes: 'P3K Pertolongan Pertama Lapangan' },
+      { id: 'TRX-1005', date: '2026-11-01 10:20', itemType: 'Umum', itemName: 'Laptop Dell Latitude 3420', type: 'Peminjaman', quantity: 2, handler: 'Dewi Lestari', contact: '0857-9988-7766', returnPlan: '2026-11-05', status: 'Dipinjam', notes: 'Kegiatan Audit Lapangan' },
+    ];
+
+    // Helper: Hitung sisa hari menuju expired
+    const getDaysToExpiry = (expiryDateStr) => {
+      if (!expiryDateStr) return 9999;
+      const today = new Date('2026-11-02');
+      const exp = new Date(expiryDateStr);
+      const diffTime = exp.getTime() - today.getTime();
+      return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    };
+
+    function App() {
+      const [activeTab, setActiveTab] = useState('dashboard');
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+      // Data aplikasi disimpan di Cloud Firestore agar semua perangkat melihat data yang sama.
+      const [items, setItems] = useState(INITIAL_ITEMS);
+      const [medicines, setMedicines] = useState(INITIAL_MEDICINES);
+      const [transactions, setTransactions] = useState(INITIAL_TRANSACTIONS);
+      const [cloudStatus, setCloudStatus] = useState('Menghubungkan ke database...');
+      const [cloudReady, setCloudReady] = useState(false);
+      const [cloudError, setCloudError] = useState('');
+      const lastCloudData = useRef('');
+
+      // Konfigurasi Firebase diisi setelah membuat project Firebase (lihat PANDUAN.txt).
+      const firebaseConfig = {
+        apiKey: "ISI_API_KEY",
+        authDomain: "ISI_PROJECT_ID.firebaseapp.com",
+        projectId: "ISI_PROJECT_ID",
+        appId: "ISI_APP_ID"
+      };
+
+      const firebaseConfigured = firebaseConfig.apiKey !== 'ISI_API_KEY' &&
+        firebaseConfig.projectId !== 'ISI_PROJECT_ID' && firebaseConfig.appId !== 'ISI_APP_ID';
+
+      useEffect(() => {
+        if (!firebaseConfigured) {
+          setCloudStatus('Belum dikonfigurasi');
+          setCloudError('Website perlu dihubungkan ke Firebase terlebih dahulu. Ikuti PANDUAN.txt.');
+          return;
+        }
+
+        let unsubscribe = null;
+        let cancelled = false;
+        const startCloud = async () => {
+          try {
+            if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+            await auth.signInAnonymously();
+            if (cancelled) return;
+            const ref = db.collection('sharedInventory').doc('main');
+            const snapshot = await ref.get();
+            if (!snapshot.exists) {
+              await ref.set({
+                items: INITIAL_ITEMS,
+                medicines: INITIAL_MEDICINES,
+                transactions: INITIAL_TRANSACTIONS,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+              });
+            }
+            if (cancelled) return;
+            unsubscribe = ref.onSnapshot((doc) => {
+              if (!doc.exists) return;
+              const data = doc.data();
+              lastCloudData.current = JSON.stringify({ items: data.items || [], medicines: data.medicines || [], transactions: data.transactions || [] });
+              if (Array.isArray(data.items)) setItems(data.items);
+              if (Array.isArray(data.medicines)) setMedicines(data.medicines);
+              if (Array.isArray(data.transactions)) setTransactions(data.transactions);
+              setCloudReady(true);
+              setCloudStatus('Terhubung · Data bersama aktif');
+              setCloudError('');
+            }, (error) => {
+              console.error(error);
+              setCloudStatus('Gagal membaca database');
+              setCloudError(error.message || 'Periksa konfigurasi dan aturan Firebase.');
+            });
+          } catch (error) {
+            console.error(error);
+            setCloudStatus('Koneksi gagal');
+            setCloudError(error.message || 'Periksa koneksi internet dan pengaturan Firebase.');
+          }
+        };
+        startCloud();
+        return () => { cancelled = true; if (unsubscribe) unsubscribe(); };
+      }, []);
+
+      // Simpan perubahan ke satu dokumen cloud. Semua pengguna menerima pembaruan realtime.
+      useEffect(() => {
+        if (!cloudReady || !firebaseConfigured || !firebase.apps.length) return;
+        const currentData = JSON.stringify({ items, medicines, transactions });
+        if (currentData === lastCloudData.current) return;
+        lastCloudData.current = currentData;
+        const save = async () => {
+          try {
+            await firebase.firestore().collection('sharedInventory').doc('main').set({
+              items, medicines, transactions,
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+            setCloudStatus('Tersimpan · Data bersama aktif');
+            setCloudError('');
+          } catch (error) {
+            console.error(error);
+            setCloudStatus('Gagal menyimpan');
+            setCloudError(error.message || 'Perubahan belum tersimpan ke cloud.');
+          }
+        };
+        save();
+      }, [items, medicines, transactions, cloudReady]);
+
+      useEffect(() => {
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      }, [activeTab, items, medicines, transactions, mobileMenuOpen]);
+
+      // Modal States
+      const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
+      const [editingItem, setEditingItem] = useState(null);
+
+      const [isAddMedModalOpen, setIsAddMedModalOpen] = useState(false);
+      const [editingMed, setEditingMed] = useState(null);
+
+      const [isBorrowModalOpen, setIsBorrowModalOpen] = useState(false);
+      const [selectedBorrowItem, setSelectedBorrowItem] = useState(null);
+
+      const [isDistributeMedModalOpen, setIsDistributeMedModalOpen] = useState(false);
+      const [selectedDistributeMed, setSelectedDistributeMed] = useState(null);
+
+      // Search & Filter State
+      const [searchQuery, setSearchQuery] = useState('');
+      const [filterCategory, setFilterCategory] = useState('All');
+      const [filterCondition, setFilterCondition] = useState('All');
+
+      // Stats Calculations
+      const stats = useMemo(() => {
+        const totalItems = items.reduce((acc, curr) => acc + Number(curr.stock), 0);
+        const damagedItems = items.filter(i => i.condition !== 'Baik').length;
+        const totalMeds = medicines.reduce((acc, curr) => acc + Number(curr.stock), 0);
+        
+        const alertMeds = medicines.filter(m => {
+          const days = getDaysToExpiry(m.expiryDate);
+          return Number(m.stock) <= 5 || days <= 30 || m.condition === 'Expired';
+        }).length;
+
+        const activeBorrows = transactions.filter(t => t.status === 'Dipinjam').length;
+
+        return { totalItems, damagedItems, totalMeds, alertMeds, activeBorrows };
+      }, [items, medicines, transactions]);
+
+      const handleDeleteItem = (id) => {
+        if (window.confirm('Apakah Anda yakin ingin menghapus barang ini?')) {
+          setItems(prev => prev.filter(item => item.id !== id));
+        }
+      };
+
+      const handleDeleteMed = (id) => {
+        if (window.confirm('Apakah Anda yakin ingin menghapus data obat ini?')) {
+          setMedicines(prev => prev.filter(med => med.id !== id));
+        }
+      };
+
+      const handleReturnItem = (transactionId, itemName, qty) => {
+        if (window.confirm(`Konfirmasi pengembalian barang: ${itemName}?`)) {
+          setTransactions(prev => prev.map(t => t.id === transactionId ? { ...t, status: 'Dikembalikan' } : t));
+          
+          setItems(prev => prev.map(item => {
+            if (item.name === itemName) {
+              return { ...item, stock: Number(item.stock) + Number(qty) };
+            }
+            return item;
+          }));
+
+          const newLog = {
+            id: `TRX-${Math.floor(1000 + Math.random() * 9000)}`,
+            date: new Date().toISOString().replace('T', ' ').substring(0, 16),
+            itemType: 'Umum',
+            itemName: itemName,
+            type: 'Pengembalian',
+            quantity: qty,
+            handler: 'System Admin',
+            contact: '-',
+            returnPlan: '-',
+            status: 'Selesai',
+            notes: `Pengembalian sukses dari transaksi #${transactionId}`
+          };
+          setTransactions(prev => [newLog, ...prev]);
+        }
+      };
+
+      return (
+        <div className="min-h-screen flex flex-col font-sans">
+          
+          {/* HEADER / NAVIGATION BAR */}
+          <header className="bg-slate-900 text-white sticky top-0 z-30 shadow-md">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16">
+                
+                {/* Logo & Brand */}
+                <div className="flex items-center space-x-3">
+                  <div className="bg-gradient-to-tr from-blue-600 to-indigo-500 p-2 rounded-xl text-white shadow-lg">
+                    <Icon name="building-2" className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="font-bold text-base sm:text-lg tracking-tight block leading-tight text-white">SIM-GUDANG & KESEHATAN</span>
+                    <span className="text-[11px] sm:text-xs text-slate-400 font-medium">Sistem Inventaris Terpadu Organisasi</span>
+                  </div>
+                </div>
+
+                {/* Desktop Navigation Links */}
+                <nav className="hidden md:flex space-x-1">
+                  <button
+                    onClick={() => setActiveTab('dashboard')}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
+                      activeTab === 'dashboard' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                    }`}
+                  >
+                    <Icon name="layout-dashboard" className="w-4 h-4" />
+                    <span>Dashboard</span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('items')}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
+                      activeTab === 'items' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                    }`}
+                  >
+                    <Icon name="package" className="w-4 h-4" />
+                    <span>Barang Umum</span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('medicines')}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 relative ${
+                      activeTab === 'medicines' ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                    }`}
+                  >
+                    <Icon name="pill" className="w-4 h-4" />
+                    <span>Modul Kesehatan</span>
+                    {stats.alertMeds > 0 && (
+                      <span className="ml-1.5 bg-amber-500 text-slate-900 text-xs font-extrabold px-1.5 py-0.5 rounded-full">
+                        {stats.alertMeds}
+                      </span>
+                    )}
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('logs')}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
+                      activeTab === 'logs' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                    }`}
+                  >
+                    <Icon name="history" className="w-4 h-4" />
+                    <span>Riwayat Log</span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('database')}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
+                      activeTab === 'database' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                    }`}
+                  >
+                    <Icon name="database" className="w-4 h-4" />
+                    <span>Skema Database</span>
+                  </button>
+                </nav>
+
+                {/* Mobile menu button */}
+                <div className="flex md:hidden">
+                  <button
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    className="p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none"
+                  >
+                    <Icon name={mobileMenuOpen ? "x" : "menu"} className="w-6 h-6" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Navigation Dropdown */}
+            {mobileMenuOpen && (
+              <div className="md:hidden bg-slate-800 border-t border-slate-700 px-2 pt-2 pb-3 space-y-1">
+                <button
+                  onClick={() => { setActiveTab('dashboard'); setMobileMenuOpen(false); }}
+                  className={`w-full text-left px-3 py-2.5 rounded-md text-base font-medium flex items-center space-x-3 ${
+                    activeTab === 'dashboard' ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
+                  <Icon name="layout-dashboard" className="w-5 h-5" />
+                  <span>Dashboard</span>
+                </button>
+                <button
+                  onClick={() => { setActiveTab('items'); setMobileMenuOpen(false); }}
+                  className={`w-full text-left px-3 py-2.5 rounded-md text-base font-medium flex items-center space-x-3 ${
+                    activeTab === 'items' ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
+                  <Icon name="package" className="w-5 h-5" />
+                  <span>Barang Umum</span>
+                </button>
+                <button
+                  onClick={() => { setActiveTab('medicines'); setMobileMenuOpen(false); }}
+                  className={`w-full text-left px-3 py-2.5 rounded-md text-base font-medium flex items-center space-x-3 ${
+                    activeTab === 'medicines' ? 'bg-emerald-600 text-white' : 'text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
+                  <Icon name="pill" className="w-5 h-5" />
+                  <span>Modul Kesehatan</span>
+                  {stats.alertMeds > 0 && (
+                    <span className="bg-amber-500 text-slate-900 text-xs font-bold px-2 py-0.5 rounded-full ml-auto">
+                      {stats.alertMeds}
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={() => { setActiveTab('logs'); setMobileMenuOpen(false); }}
+                  className={`w-full text-left px-3 py-2.5 rounded-md text-base font-medium flex items-center space-x-3 ${
+                    activeTab === 'logs' ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
+                  <Icon name="history" className="w-5 h-5" />
+                  <span>Riwayat Transaksi Log</span>
+                </button>
+                <button
+                  onClick={() => { setActiveTab('database'); setMobileMenuOpen(false); }}
+                  className={`w-full text-left px-3 py-2.5 rounded-md text-base font-medium flex items-center space-x-3 ${
+                    activeTab === 'database' ? 'bg-purple-600 text-white' : 'text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
+                  <Icon name="database" className="w-5 h-5" />
+                  <span>Perancangan Database</span>
+                </button>
+              </div>
+            )}
+          </header>
+
+          {/* MAIN CONTAINER CONTENT */}
+          <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+            <div className={`mb-4 rounded-xl border px-4 py-3 text-xs sm:text-sm ${cloudReady ? 'border-emerald-200 bg-emerald-50 text-emerald-800' : 'border-amber-200 bg-amber-50 text-amber-800'}`}>
+              <div className="font-bold">Status database: {cloudStatus}</div>
+              {cloudError && <div className="mt-1">{cloudError}</div>}
+              {cloudReady && <div className="mt-1">Perubahan akan dibagikan ke perangkat lain yang membuka website ini.</div>}
+            </div>
+
+            {/* TAB 1: DASHBOARD */}
+            {activeTab === 'dashboard' && (
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Dashboard & Ringkasan Inventaris</h1>
+                    <p className="text-slate-500 text-xs sm:text-sm">Monitoring real-time stok barang umum, obat-obatan, dan status peminjaman.</p>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <button 
+                      onClick={() => {
+                        if (window.confirm('Reset data inventaris ke data bawaan awal?')) {
+                          setItems(INITIAL_ITEMS);
+                          setMedicines(INITIAL_MEDICINES);
+                          setTransactions(INITIAL_TRANSACTIONS);
+                        }
+                      }}
+                      className="px-3 py-2 text-xs font-semibold bg-slate-200 text-slate-700 hover:bg-slate-300 rounded-lg flex items-center space-x-1 transition"
+                    >
+                      <Icon name="refresh-cw" className="w-3.5 h-3.5" />
+                      <span>Reset Demo Data</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Stat Summary Cards Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Barang Umum</span>
+                      <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                        <Icon name="package" className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <div className="mt-3 flex items-baseline justify-between">
+                      <span className="text-3xl font-extrabold text-slate-900">{stats.totalItems}</span>
+                      <span className="text-xs font-semibold text-slate-500">{items.length} Jenis Item</span>
+                    </div>
+                    <div className="mt-2 text-xs text-slate-500 flex items-center justify-between border-t border-slate-100 pt-2">
+                      <span>Kondisi Rusak: <strong className="text-amber-600">{stats.damagedItems}</strong> item</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Obat & Alkes</span>
+                      <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+                        <Icon name="pill" className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <div className="mt-3 flex items-baseline justify-between">
+                      <span className="text-3xl font-extrabold text-slate-900">{stats.totalMeds}</span>
+                      <span className="text-xs font-semibold text-slate-500">{medicines.length} Varian</span>
+                    </div>
+                    <div className="mt-2 text-xs text-slate-500 flex items-center justify-between border-t border-slate-100 pt-2">
+                      <span>Tersimpan aman di P3K / Lemari</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Perlu Perhatian (Obat)</span>
+                      <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
+                        <Icon name="alert-triangle" className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <div className="mt-3 flex items-baseline justify-between">
+                      <span className="text-3xl font-extrabold text-amber-600">{stats.alertMeds}</span>
+                      <span className="text-xs font-medium text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">Peringatan</span>
+                    </div>
+                    <div className="mt-2 text-xs text-slate-500 flex items-center justify-between border-t border-slate-100 pt-2">
+                      <span>Stok Menipis / Expired &lt;30 Hari</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Status Peminjaman</span>
+                      <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                        <Icon name="user-check" className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <div className="mt-3 flex items-baseline justify-between">
+                      <span className="text-3xl font-extrabold text-indigo-600">{stats.activeBorrows}</span>
+                      <span className="text-xs font-semibold text-slate-500">Aktif Dipinjam</span>
+                    </div>
+                    <div className="mt-2 text-xs text-slate-500 flex items-center justify-between border-t border-slate-100 pt-2">
+                      <span>Mutasi barang terpantau</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Alert Banner */}
+                {medicines.some(m => getDaysToExpiry(m.expiryDate) <= 30 || m.stock <= 5) && (
+                  <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-sm">
+                    <div className="flex items-start space-x-3">
+                      <Icon name="shield-alert" className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <h3 className="text-sm font-bold text-amber-800">Peringatan Stok & Tanggal Kadaluarsa Obat!</h3>
+                        <p className="text-xs text-amber-700 mt-1">
+                          Terdapat obat yang stoknya di bawah batas minimum (&le; 5) atau mendekati tanggal expired (&lt;30 hari). Silahkan periksa tabel rekapitulasi kesehatan untuk penanganan lebih lanjut.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Catalog & Quick Table */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  <div className="lg:col-span-2 bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-base sm:text-lg font-bold text-slate-900 flex items-center space-x-2">
+                        <Icon name="layers" className="w-5 h-5 text-blue-600" />
+                        <span>Katalog Rekap Stok Barang Umum</span>
+                      </h2>
+                      <button 
+                        onClick={() => setActiveTab('items')} 
+                        className="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center space-x-1"
+                      >
+                        <span>Lihat Semua</span>
+                        <Icon name="chevron-right" className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-xs sm:text-sm">
+                        <thead>
+                          <tr className="border-b border-slate-200 text-slate-500 bg-slate-50">
+                            <th className="py-2.5 px-3 font-semibold">Nama Barang</th>
+                            <th className="py-2.5 px-3 font-semibold">Kategori</th>
+                            <th className="py-2.5 px-3 font-semibold text-center">Stok</th>
+                            <th className="py-2.5 px-3 font-semibold text-center">Kondisi</th>
+                            <th className="py-2.5 px-3 font-semibold text-center">Status Pinjam</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {items.slice(0, 5).map((item) => (
+                            <tr key={item.id} className="hover:bg-slate-50">
+                              <td className="py-3 px-3 font-medium text-slate-800">{item.name}</td>
+                              <td className="py-3 px-3 text-slate-500">{item.category}</td>
+                              <td className="py-3 px-3 text-center font-bold text-slate-700">{item.stock}</td>
+                              <td className="py-3 px-3 text-center">
+                                <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                                  item.condition === 'Baik' ? 'bg-emerald-100 text-emerald-700' :
+                                  item.condition === 'Rusak Ringan' ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'
+                                }`}>
+                                  {item.condition}
+                                </span>
+                              </td>
+                              <td className="py-3 px-3 text-center">
+                                {item.canBorrow ? (
+                                  <span className="text-xs text-blue-600 font-semibold bg-blue-50 px-2 py-0.5 rounded-full">Bisa Dipinjam</span>
+                                ) : (
+                                  <span className="text-xs text-slate-400 font-semibold bg-slate-100 px-2 py-0.5 rounded-full">Internal</span>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* Highlight Obat Expired */}
+                  <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-base sm:text-lg font-bold text-slate-900 flex items-center space-x-2">
+                          <Icon name="clock" className="w-5 h-5 text-amber-500" />
+                          <span>Pantauan Obat Expired</span>
+                        </h2>
+                        <button 
+                          onClick={() => setActiveTab('medicines')} 
+                          className="text-xs font-semibold text-emerald-600 hover:text-emerald-800"
+                        >
+                          Modul Obat
+                        </button>
+                      </div>
+
+                      <div className="space-y-3">
+                        {medicines
+                          .filter(m => getDaysToExpiry(m.expiryDate) <= 60 || m.stock <= 5)
+                          .slice(0, 4)
+                          .map((med) => {
+                            const daysLeft = getDaysToExpiry(med.expiryDate);
+                            const isExpired = daysLeft <= 0 || med.condition === 'Expired';
+                            const isWarning = daysLeft > 0 && daysLeft <= 30;
+                            const isLowStock = med.stock <= 5;
+
+                            return (
+                              <div key={med.id} className="p-3 rounded-lg border border-slate-100 bg-slate-50 flex items-center justify-between">
+                                <div>
+                                  <div className="font-semibold text-xs text-slate-800">{med.name}</div>
+                                  <div className="text-[11px] text-slate-500">Stok: {med.stock} | Exp: {med.expiryDate}</div>
+                                </div>
+                                <div className="text-right">
+                                  {isExpired && (
+                                    <span className="text-[10px] bg-red-600 text-white font-bold px-2 py-0.5 rounded">EXPIRED</span>
+                                  )}
+                                  {isWarning && (
+                                    <span className="text-[10px] bg-amber-500 text-white font-bold px-2 py-0.5 rounded">{daysLeft} Hari Lagi</span>
+                                  )}
+                                  {isLowStock && !isExpired && !isWarning && (
+                                    <span className="text-[10px] bg-blue-500 text-white font-bold px-2 py-0.5 rounded">Stok Menipis</span>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-4 border-t border-slate-100 text-center">
+                      <span className="text-xs text-slate-400">Sistem otomatis menghitung & visualisir status obat.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 2: MANAJEMEN BARANG UMUM */}
+            {activeTab === 'items' && (
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Master Data Barang Umum</h1>
+                    <p className="text-slate-500 text-xs sm:text-sm">Kelola inventaris perlengkapan, elektronik, mebel, dan peminjaman.</p>
+                  </div>
+                  <button
+                    onClick={() => { setEditingItem(null); setIsAddItemModalOpen(true); }}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center space-x-2 shadow-sm transition"
+                  >
+                    <Icon name="plus" className="w-4 h-4" />
+                    <span>Tambah Barang Baru</span>
+                  </button>
+                </div>
+
+                {/* Filter & Search Bar */}
+                <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-3">
+                  <div className="flex-1 relative">
+                    <Icon name="search" className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                    <input
+                      type="text"
+                      placeholder="Cari nama barang, merk, atau lokasi..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    />
+                  </div>
+
+                  <div className="flex gap-2">
+                    <select
+                      value={filterCategory}
+                      onChange={(e) => setFilterCategory(e.target.value)}
+                      className="px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                      <option value="All">Semua Kategori</option>
+                      <option value="Elektronik">Elektronik</option>
+                      <option value="Mebel">Mebel</option>
+                      <option value="Peralatan">Peralatan</option>
+                    </select>
+
+                    <select
+                      value={filterCondition}
+                      onChange={(e) => setFilterCondition(e.target.value)}
+                      className="px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                      <option value="All">Semua Kondisi</option>
+                      <option value="Baik">Baik</option>
+                      <option value="Rusak Ringan">Rusak Ringan</option>
+                      <option value="Rusak Berat">Rusak Berat</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Data Table */}
+                <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm">
+                      <thead className="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                        <tr>
+                          <th className="py-3 px-4">ID</th>
+                          <th className="py-3 px-4">Nama Barang</th>
+                          <th className="py-3 px-4">Kategori & Merk</th>
+                          <th className="py-3 px-4 text-center">Stok</th>
+                          <th className="py-3 px-4 text-center">Kondisi</th>
+                          <th className="py-3 px-4">Lokasi</th>
+                          <th className="py-3 px-4 text-center">Status Pinjam</th>
+                          <th className="py-3 px-4 text-right">Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {items
+                          .filter(item => {
+                            const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                                item.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                                item.location.toLowerCase().includes(searchQuery.toLowerCase());
+                            const matchCat = filterCategory === 'All' || item.category === filterCategory;
+                            const matchCond = filterCondition === 'All' || item.condition === filterCondition;
+                            return matchSearch && matchCat && matchCond;
+                          })
+                          .map((item) => (
+                            <tr key={item.id} className="hover:bg-slate-50 transition">
+                              <td className="py-3 px-4 text-xs font-mono font-bold text-slate-500">{item.id}</td>
+                              <td className="py-3 px-4 font-semibold text-slate-900">{item.name}</td>
+                              <td className="py-3 px-4 text-slate-600 text-xs">
+                                <span className="font-medium text-slate-800">{item.category}</span> ({item.brand})
+                              </td>
+                              <td className="py-3 px-4 text-center font-bold text-slate-800">{item.stock}</td>
+                              <td className="py-3 px-4 text-center">
+                                <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
+                                  item.condition === 'Baik' ? 'bg-emerald-100 text-emerald-700' :
+                                  item.condition === 'Rusak Ringan' ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'
+                                }`}>
+                                  {item.condition}
+                                </span>
+                              </td>
+                              <td className="py-3 px-4 text-slate-600 text-xs">{item.location}</td>
+                              <td className="py-3 px-4 text-center">
+                                {item.canBorrow ? (
+                                  <span className="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-0.5 rounded-full border border-blue-200">
+                                    Dapat Dipinjam
+                                  </span>
+                                ) : (
+                                  <span className="text-xs bg-slate-100 text-slate-500 font-medium px-2.5 py-0.5 rounded-full">
+                                    Tidak Dipinjamkan
+                                  </span>
+                                )}
+                              </td>
+                              <td className="py-3 px-4 text-right space-x-1">
+                                {item.canBorrow && item.stock > 0 && (
+                                  <button
+                                    onClick={() => { setSelectedBorrowItem(item); setIsBorrowModalOpen(true); }}
+                                    className="p-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg text-xs font-semibold transition"
+                                  >
+                                    Pinjam
+                                  </button>
+                                )}
+                                <button
+                                  onClick={() => { setEditingItem(item); setIsAddItemModalOpen(true); }}
+                                  className="p-1.5 text-slate-600 hover:bg-slate-100 rounded-lg transition"
+                                >
+                                  <Icon name="edit" className="w-4 h-4" />
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteItem(item.id)}
+                                  className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition"
+                                >
+                                  <Icon name="trash-2" className="w-4 h-4" />
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 3: MODUL KESEHATAN */}
+            {activeTab === 'medicines' && (
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center space-x-2">
+                      <Icon name="pill" className="w-6 h-6 text-emerald-600" />
+                      <span>Modul Inventaris Kesehatan & Obat</span>
+                    </h1>
+                    <p className="text-slate-500 text-xs sm:text-sm">Pengelolaan obat-obatan, alat kesehatan (alkes), dosis, tanggal expired, dan distribusi.</p>
+                  </div>
+                  <button
+                    onClick={() => { setEditingMed(null); setIsAddMedModalOpen(true); }}
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center space-x-2 shadow-sm transition"
+                  >
+                    <Icon name="plus" className="w-4 h-4" />
+                    <span>Tambah Obat / Alkes</span>
+                  </button>
+                </div>
+
+                {/* Status Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center space-x-3">
+                    <Icon name="check-circle-2" className="w-8 h-8 text-emerald-600 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-sm font-bold text-emerald-900">Kondisi Stok Aman</h4>
+                      <p className="text-xs text-emerald-700">Obat dalam masa simpan aman & stok memadai.</p>
+                    </div>
+                  </div>
+                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center space-x-3">
+                    <Icon name="alert-triangle" className="w-8 h-8 text-amber-600 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-sm font-bold text-amber-900">Mendekati Expired (&lt;30 Hari)</h4>
+                      <p className="text-xs text-amber-700">Prioritaskan penggunaan atau sortir obat.</p>
+                    </div>
+                  </div>
+                  <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center space-x-3">
+                    <Icon name="shield-alert" className="w-8 h-8 text-red-600 flex-shrink-0" />
+                    <div>
+                      <h4 className="text-sm font-bold text-red-900">Stok Menipis / Expired</h4>
+                      <p className="text-xs text-red-700">Stok &le; 5 unit atau melewati tanggal kadaluarsa.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Table Medicine */}
+                <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                  <div className="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+                    <h3 className="font-bold text-slate-800 text-base">Tabel Rekapitulasi Obat & Alat Medis</h3>
+                    <span className="text-xs font-semibold text-slate-500">Total Varian: {medicines.length}</span>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm">
+                      <thead className="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                        <tr>
+                          <th className="py-3 px-4">Kode</th>
+                          <th className="py-3 px-4">Nama Obat / Alkes</th>
+                          <th className="py-3 px-4">Jenis & Dosis</th>
+                          <th className="py-3 px-4">Pabrik / Merk</th>
+                          <th className="py-3 px-4 text-center">Stok</th>
+                          <th className="py-3 px-4">Tgl Expired</th>
+                          <th className="py-3 px-4">Lokasi Simpan</th>
+                          <th className="py-3 px-4 text-center">Status Peringatan</th>
+                          <th className="py-3 px-4 text-right">Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {medicines.map((med) => {
+                          const daysLeft = getDaysToExpiry(med.expiryDate);
+                          const isExpired = daysLeft <= 0 || med.condition === 'Expired';
+                          const isWarning = daysLeft > 0 && daysLeft <= 30;
+                          const isLowStock = med.stock <= 5;
+
+                          return (
+                            <tr 
+                              key={med.id} 
+                              className={`hover:bg-slate-50 transition ${
+                                isExpired ? 'bg-red-50/50' : isWarning ? 'bg-amber-50/50' : ''
+                              }`}
+                            >
+                              <td className="py-3 px-4 text-xs font-mono font-bold text-slate-500">{med.id}</td>
+                              <td className="py-3 px-4 font-semibold text-slate-900">{med.name}</td>
+                              <td className="py-3 px-4 text-slate-600 text-xs">
+                                <span className="font-semibold text-slate-800">{med.type}</span> ({med.dosage})
+                              </td>
+                              <td className="py-3 px-4 text-slate-600 text-xs">{med.brand}</td>
+                              <td className="py-3 px-4 text-center">
+                                <span className={`font-bold ${isLowStock ? 'text-red-600 font-extrabold' : 'text-slate-800'}`}>
+                                  {med.stock}
+                                </span>
+                              </td>
+                              <td className="py-3 px-4 text-xs font-medium text-slate-700">{med.expiryDate}</td>
+                              <td className="py-3 px-4 text-slate-600 text-xs">{med.location}</td>
+                              <td className="py-3 px-4 text-center">
+                                <div className="flex flex-col items-center gap-1">
+                                  {isExpired && (
+                                    <span className="bg-red-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full">
+                                      EXPIRED
+                                    </span>
+                                  )}
+                                  {isWarning && (
+                                    <span className="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                      Exp {daysLeft} Hari Lagi
+                                    </span>
+                                  )}
+                                  {isLowStock && (
+                                    <span className="bg-amber-100 text-amber-800 border border-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                      Stok Menipis
+                                    </span>
+                                  )}
+                                  {!isExpired && !isWarning && !isLowStock && (
+                                    <span className="bg-emerald-100 text-emerald-700 text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                                      Normal / Baik
+                                    </span>
+                                  )}
+                                </div>
+                              </td>
+                              <td className="py-3 px-4 text-right space-x-1">
+                                {med.stock > 0 && !isExpired && (
+                                  <button
+                                    onClick={() => { setSelectedDistributeMed(med); setIsDistributeMedModalOpen(true); }}
+                                    className="p-1.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-lg text-xs font-semibold transition"
+                                  >
+                                    Berikan
+                                  </button>
+                                )}
+                                <button
+                                  onClick={() => { setEditingMed(med); setIsAddMedModalOpen(true); }}
+                                  className="p-1.5 text-slate-600 hover:bg-slate-100 rounded-lg transition"
+                                >
+                                  <Icon name="edit" className="w-4 h-4" />
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteMed(med.id)}
+                                  className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition"
+                                >
+                                  <Icon name="trash-2" className="w-4 h-4" />
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 4: RIWAYAT TRANSAKSI / LOG */}
+            {activeTab === 'logs' && (
+              <div className="space-y-6">
+                <div>
+                  <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Riwayat Mutasi & Transaksi Terpusat</h1>
+                  <p className="text-slate-500 text-xs sm:text-sm">Audit log mutasi barang umum, distribusi obat-obatan, dan peminjaman.</p>
+                </div>
+
+                <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                  <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                    <span className="font-bold text-slate-800 text-sm">Semua Catatan Mutasi Inventaris</span>
+                    <span className="text-xs text-slate-500">Total Log: {transactions.length}</span>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm">
+                      <thead className="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                        <tr>
+                          <th className="py-3 px-4">No. Log</th>
+                          <th className="py-3 px-4">Waktu</th>
+                          <th className="py-3 px-4">Jenis & Nama Barang</th>
+                          <th className="py-3 px-4 text-center">Tipe Mutasi</th>
+                          <th className="py-3 px-4 text-center">Jumlah</th>
+                          <th className="py-3 px-4">Penerima / Peminjam</th>
+                          <th className="py-3 px-4">Keterangan / Keluhan</th>
+                          <th className="py-3 px-4 text-center">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {transactions.map((trx) => (
+                          <tr key={trx.id} className="hover:bg-slate-50 transition">
+                            <td className="py-3 px-4 text-xs font-mono font-bold text-slate-500">{trx.id}</td>
+                            <td className="py-3 px-4 text-xs text-slate-600 font-medium">{trx.date}</td>
+                            <td className="py-3 px-4">
+                              <div className="font-semibold text-slate-900">{trx.itemName}</div>
+                              <span className="text-[10px] text-slate-400 font-medium">{trx.itemType}</span>
+                            </td>
+                            <td className="py-3 px-4 text-center">
+                              <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                                trx.type === 'Peminjaman' ? 'bg-indigo-100 text-indigo-700' :
+                                trx.type === 'Distribusi Obat' ? 'bg-emerald-100 text-emerald-700' :
+                                trx.type === 'Barang Masuk' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-700'
+                              }`}>
+                                {trx.type}
+                              </span>
+                            </td>
+                            <td className="py-3 px-4 text-center font-bold text-slate-800">{trx.quantity}</td>
+                            <td className="py-3 px-4 text-xs">
+                              <div className="font-semibold text-slate-800">{trx.handler}</div>
+                              {trx.contact !== '-' && <div className="text-[11px] text-slate-400">{trx.contact}</div>}
+                            </td>
+                            <td className="py-3 px-4 text-xs text-slate-600 max-w-xs truncate">{trx.notes}</td>
+                            <td className="py-3 px-4 text-center">
+                              {trx.status === 'Dipinjam' ? (
+                                <button
+                                  onClick={() => handleReturnItem(trx.id, trx.itemName, trx.quantity)}
+                                  className="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded shadow-sm transition"
+                                >
+                                  Kembalikan
+                                </button>
+                              ) : (
+                                <span className="text-xs text-slate-500 font-medium">Selesai</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 5: DATABASE SCHEMA */}
+            {activeTab === 'database' && (
+              <div className="space-y-6">
+                <div>
+                  <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center space-x-2">
+                    <Icon name="database" className="w-6 h-6 text-purple-600" />
+                    <span>Perancangan Database Relasional (SQL Schema)</span>
+                  </h1>
+                  <p className="text-slate-500 text-xs sm:text-sm">Dokumentasi arsitektur tabel database relasional untuk Sistem Inventaris Gudang & Modul Kesehatan.</p>
+                </div>
+
+                <div className="bg-purple-900 text-white p-6 rounded-xl shadow-md">
+                  <h3 className="text-lg font-bold mb-2 flex items-center space-x-2">
+                    <Icon name="layers" className="w-5 h-5 text-purple-300" />
+                    <span>Hubungan Antar Tabel (Entity Relationship Summary)</span>
+                  </h3>
+                  <p className="text-purple-200 text-xs sm:text-sm leading-relaxed mb-4">
+                    Sistem menggunakan skema relasional yang memisahkan barang umum (<code className="text-amber-300">items</code>) dengan obat/alat medis (<code className="text-amber-300">medicines</code>) untuk efisiensi kolom khusus kesehatan (seperti dosis & tanggal expired). Tabel <code className="text-amber-300">transactions</code> dan <code className="text-amber-300">medicine_logs</code> mencatat seluruh riwayat mutasi dengan relasi <em>Foreign Key</em> ke tabel <code className="text-amber-300">users</code>, <code className="text-amber-300">items</code>, dan <code className="text-amber-300">medicines</code>.
+                  </p>
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-center text-xs">
+                    <div className="bg-purple-800 p-2.5 rounded-lg border border-purple-700 font-semibold">1. users</div>
+                    <div className="bg-purple-800 p-2.5 rounded-lg border border-purple-700 font-semibold">2. items</div>
+                    <div className="bg-purple-800 p-2.5 rounded-lg border border-purple-700 font-semibold">3. medicines</div>
+                    <div className="bg-purple-800 p-2.5 rounded-lg border border-purple-700 font-semibold">4. transactions</div>
+                    <div className="bg-purple-800 p-2.5 rounded-lg border border-purple-700 font-semibold">5. medicine_logs</div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {/* Table 1 */}
+                  <div className="bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-800">
+                    <div className="bg-slate-800 px-4 py-2.5 flex items-center justify-between border-b border-slate-700">
+                      <span className="font-mono text-xs font-bold text-purple-400">Tabel 1: users (Petugas / Admin)</span>
+                      <span className="text-[11px] text-slate-400 font-mono">PostgreSQL / MySQL</span>
+                    </div>
+                    <pre className="p-4 text-xs font-mono text-emerald-400 overflow-x-auto leading-relaxed">
+{`CREATE TABLE users (
+    id VARCHAR(36) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN', 'PETUGAS_GUDANG', 'PETUGAS_MEDIS') DEFAULT 'PETUGAS_GUDANG',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);`}
+                    </pre>
+                  </div>
+
+                  {/* Table 2 */}
+                  <div className="bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-800">
+                    <div className="bg-slate-800 px-4 py-2.5 flex items-center justify-between border-b border-slate-700">
+                      <span className="font-mono text-xs font-bold text-purple-400">Tabel 2: items (Master Data Barang Umum)</span>
+                      <span className="text-[11px] text-slate-400 font-mono">PostgreSQL / MySQL</span>
+                    </div>
+                    <pre className="p-4 text-xs font-mono text-emerald-400 overflow-x-auto leading-relaxed">
+{`CREATE TABLE items (
+    id VARCHAR(36) PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    category VARCHAR(50) NOT NULL, -- Elektronik, Mebel, Peralatan, Dll
+    brand VARCHAR(80),
+    condition ENUM('Baik', 'Rusak Ringan', 'Rusak Berat') DEFAULT 'Baik',
+    stock INT NOT NULL DEFAULT 0,
+    can_borrow BOOLEAN DEFAULT TRUE,
+    location VARCHAR(100) NOT NULL, -- Rak A1, Gudang Utama, Dll
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);`}
+                    </pre>
+                  </div>
+
+                  {/* Table 3 */}
+                  <div className="bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-800">
+                    <div className="bg-slate-800 px-4 py-2.5 flex items-center justify-between border-b border-slate-700">
+                      <span className="font-mono text-xs font-bold text-purple-400">Tabel 3: medicines (Inventaris Obat & Alkes)</span>
+                      <span className="text-[11px] text-slate-400 font-mono">PostgreSQL / MySQL</span>
+                    </div>
+                    <pre className="p-4 text-xs font-mono text-emerald-400 overflow-x-auto leading-relaxed">
+{`CREATE TABLE medicines (
+    id VARCHAR(36) PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    type ENUM('Tablet', 'Sirup', 'Salep/Cair', 'Alat Medis') NOT NULL,
+    brand VARCHAR(80),
+    dosage VARCHAR(50), -- 500 mg, 100 ml, Dll
+    stock INT NOT NULL DEFAULT 0,
+    expiry_date DATE NOT NULL,
+    condition ENUM('Baik', 'Rusak', 'Expired') DEFAULT 'Baik',
+    location VARCHAR(100) NOT NULL, -- Kotak P3K Utama, Lemari Obat A
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);`}
+                    </pre>
+                  </div>
+
+                  {/* Table 4 */}
+                  <div className="bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-800">
+                    <div className="bg-slate-800 px-4 py-2.5 flex items-center justify-between border-b border-slate-700">
+                      <span className="font-mono text-xs font-bold text-purple-400">Tabel 4: transactions (Log Mutasi & Peminjaman Barang Umum)</span>
+                      <span className="text-[11px] text-slate-400 font-mono">PostgreSQL / MySQL</span>
+                    </div>
+                    <pre className="p-4 text-xs font-mono text-emerald-400 overflow-x-auto leading-relaxed">
+{`CREATE TABLE transactions (
+    id VARCHAR(36) PRIMARY KEY,
+    item_id VARCHAR(36) REFERENCES items(id) ON DELETE CASCADE,
+    type ENUM('Barang Masuk', 'Barang Keluar', 'Peminjaman', 'Pengembalian') NOT NULL,
+    quantity INT NOT NULL,
+    borrower_name VARCHAR(100),
+    borrower_contact VARCHAR(30),
+    borrow_date DATE,
+    return_plan_date DATE,
+    actual_return_date DATE,
+    status ENUM('Dipinjam', 'Dikembalikan', 'Selesai') DEFAULT 'Selesai',
+    notes TEXT,
+    created_by VARCHAR(36) REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);`}
+                    </pre>
+                  </div>
+
+                  {/* Table 5 */}
+                  <div className="bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-800">
+                    <div className="bg-slate-800 px-4 py-2.5 flex items-center justify-between border-b border-slate-700">
+                      <span className="font-mono text-xs font-bold text-purple-400">Tabel 5: medicine_logs (Log Distribusi / Penggunaan Obat)</span>
+                      <span className="text-[11px] text-slate-400 font-mono">PostgreSQL / MySQL</span>
+                    </div>
+                    <pre className="p-4 text-xs font-mono text-emerald-400 overflow-x-auto leading-relaxed">
+{`CREATE TABLE medicine_logs (
+    id VARCHAR(36) PRIMARY KEY,
+    medicine_id VARCHAR(36) REFERENCES medicines(id) ON DELETE CASCADE,
+    type ENUM('Stok Masuk', 'Distribusi/Penggunaan') NOT NULL,
+    quantity INT NOT NULL,
+    recipient_name VARCHAR(100) NOT NULL, -- Nama pasien/karyawan penerima obat
+    symptoms_complaint TEXT, -- Keperluan / Keluhan Sakit
+    distributed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(36) REFERENCES users(id)
+);`}
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            )}
+
+          </main>
+
+          {/* FORMS MODALS */}
+          {isAddItemModalOpen && (
+            <ItemModal
+              editingItem={editingItem}
+              onClose={() => setIsAddItemModalOpen(false)}
+              onSave={(itemData) => {
+                if (editingItem) {
+                  setItems(prev => prev.map(i => i.id === editingItem.id ? { ...i, ...itemData } : i));
+                } else {
+                  const newItem = {
+                    id: `ITM-${Math.floor(100 + Math.random() * 900)}`,
+                    ...itemData
+                  };
+                  setItems(prev => [newItem, ...prev]);
+
+                  const newLog = {
+                    id: `TRX-${Math.floor(1000 + Math.random() * 9000)}`,
+                    date: new Date().toISOString().replace('T', ' ').substring(0, 16),
+                    itemType: 'Umum',
+                    itemName: itemData.name,
+                    type: 'Barang Masuk',
+                    quantity: itemData.stock,
+                    handler: 'Admin Gudang',
+                    contact: '-',
+                    returnPlan: '-',
+                    status: 'Selesai',
+                    notes: 'Penambahan Master Data Barang'
+                  };
+                  setTransactions(prev => [newLog, ...prev]);
+                }
+                setIsAddItemModalOpen(false);
+              }}
+            />
+          )}
+
+          {isAddMedModalOpen && (
+            <MedicineModal
+              editingMed={editingMed}
+              onClose={() => setIsAddMedModalOpen(false)}
+              onSave={(medData) => {
+                if (editingMed) {
+                  setMedicines(prev => prev.map(m => m.id === editingMed.id ? { ...m, ...medData } : m));
+                } else {
+                  const newMed = {
+                    id: `MED-${Math.floor(100 + Math.random() * 900)}`,
+                    ...medData
+                  };
+                  setMedicines(prev => [newMed, ...prev]);
+
+                  const newLog = {
+                    id: `TRX-${Math.floor(1000 + Math.random() * 9000)}`,
+                    date: new Date().toISOString().replace('T', ' ').substring(0, 16),
+                    itemType: 'Kesehatan',
+                    itemName: medData.name,
+                    type: 'Barang Masuk',
+                    quantity: medData.stock,
+                    handler: 'Petugas Medis',
+                    contact: '-',
+                    returnPlan: '-',
+                    status: 'Selesai',
+                    notes: 'Pengadaan Obat/Alkes Baru'
+                  };
+                  setTransactions(prev => [newLog, ...prev]);
+                }
+                setIsAddMedModalOpen(false);
+              }}
+            />
+          )}
+
+          {isBorrowModalOpen && selectedBorrowItem && (
+            <BorrowModal
+              item={selectedBorrowItem}
+              onClose={() => setIsBorrowModalOpen(false)}
+              onConfirm={(borrowData) => {
+                setItems(prev => prev.map(i => {
+                  if (i.id === selectedBorrowItem.id) {
+                    return { ...i, stock: i.stock - Number(borrowData.quantity) };
+                  }
+                  return i;
+                }));
+
+                const newLog = {
+                  id: `TRX-${Math.floor(1000 + Math.random() * 9000)}`,
+                  date: new Date().toISOString().replace('T', ' ').substring(0, 16),
+                  itemType: 'Umum',
+                  itemName: selectedBorrowItem.name,
+                  type: 'Peminjaman',
+                  quantity: Number(borrowData.quantity),
+                  handler: borrowData.borrowerName,
+                  contact: borrowData.borrowerContact,
+                  returnPlan: borrowData.returnPlan,
+                  status: 'Dipinjam',
+                  notes: borrowData.notes
+                };
+                setTransactions(prev => [newLog, ...prev]);
+                setIsBorrowModalOpen(false);
+              }}
+            />
+          )}
+
+          {isDistributeMedModalOpen && selectedDistributeMed && (
+            <DistributeMedModal
+              med={selectedDistributeMed}
+              onClose={() => setIsDistributeMedModalOpen(false)}
+              onConfirm={(distData) => {
+                setMedicines(prev => prev.map(m => {
+                  if (m.id === selectedDistributeMed.id) {
+                    return { ...m, stock: m.stock - Number(distData.quantity) };
+                  }
+                  return m;
+                }));
+
+                const newLog = {
+                  id: `TRX-${Math.floor(1000 + Math.random() * 9000)}`,
+                  date: new Date().toISOString().replace('T', ' ').substring(0, 16),
+                  itemType: 'Kesehatan',
+                  itemName: selectedDistributeMed.name,
+                  type: 'Distribusi Obat',
+                  quantity: Number(distData.quantity),
+                  handler: distData.recipientName,
+                  contact: '-',
+                  returnPlan: '-',
+                  status: 'Selesai',
+                  notes: `Keluhan/Keperluan: ${distData.symptoms}`
+                };
+                setTransactions(prev => [newLog, ...prev]);
+                setIsDistributeMedModalOpen(false);
+              }}
+            />
+          )}
+
+          <footer className="bg-slate-900 text-slate-400 py-4 px-6 text-center text-xs border-t border-slate-800">
+            <p>&copy; 2026 SIM-GUDANG & KESEHATAN. Website Inventaris Bersama · Cloud Firestore.</p>
+          </footer>
+        </div>
+      );
+    }
+
+    // Modal Sub-Components
+    function ItemModal({ editingItem, onClose, onSave }) {
+      const [formData, setFormData] = useState({
+        name: editingItem?.name || '',
+        category: editingItem?.category || 'Elektronik',
+        brand: editingItem?.brand || '',
+        condition: editingItem?.condition || 'Baik',
+        stock: editingItem?.stock || 1,
+        canBorrow: editingItem ? editingItem.canBorrow : true,
+        location: editingItem?.location || 'Gudang Utama'
+      });
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        onSave(formData);
+      };
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-100">
+            <div className="bg-slate-900 px-6 py-4 flex items-center justify-between text-white">
+              <h3 className="font-bold text-base flex items-center space-x-2">
+                <Icon name="package" className="w-5 h-5 text-blue-400" />
+                <span>{editingItem ? 'Edit Data Barang' : 'Form Tambah Barang Umum'}</span>
+              </h3>
+              <button onClick={onClose} className="text-slate-400 hover:text-white">
+                <Icon name="x" className="w-5 h-5" />
+              </button>
+            </div>
+            <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs sm:text-sm">
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">Nama Barang *</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  placeholder="Contoh: Proyektor Epson EB-X400"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Kategori *</label>
+                  <select
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white"
+                  >
+                    <option value="Elektronik">Elektronik</option>
+                    <option value="Mebel">Mebel</option>
+                    <option value="Peralatan">Peralatan</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Merk / Brand</label>
+                  <input
+                    type="text"
+                    value={formData.brand}
+                    onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    placeholder="Contoh: Epson"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Jumlah / Stok *</label>
+                  <input
+                    type="number"
+                    min="0"
+                    required
+                    value={formData.stock}
+                    onChange={(e) => setFormData({ ...formData, stock: Number(e.target.value) })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Kondisi Barang *</label>
+                  <select
+                    value={formData.condition}
+                    onChange={(e) => setFormData({ ...formData, condition: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white"
+                  >
+                    <option value="Baik">Baik</option>
+                    <option value="Rusak Ringan">Rusak Ringan</option>
+                    <option value="Rusak Berat">Rusak Berat</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">Lokasi Penyimpanan *</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.location}
+                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  placeholder="Contoh: Gudang Utama - Rak A1"
+                />
+              </div>
+
+              <div className="flex items-center space-x-2 pt-2">
+                <input
+                  type="checkbox"
+                  id="canBorrow"
+                  checked={formData.canBorrow}
+                  onChange={(e) => setFormData({ ...formData, canBorrow: e.target.checked })}
+                  className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                />
+                <label htmlFor="canBorrow" className="font-semibold text-slate-700 select-none">
+                  Dapat Dipinjamkan Keluar
+                </label>
+              </div>
+
+              <div className="flex justify-end space-x-2 pt-4 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg font-semibold hover:bg-slate-50"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow-sm"
+                >
+                  Simpan Data
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      );
+    }
+
+    function MedicineModal({ editingMed, onClose, onSave }) {
+      const [formData, setFormData] = useState({
+        name: editingMed?.name || '',
+        type: editingMed?.type || 'Tablet',
+        brand: editingMed?.brand || '',
+        dosage: editingMed?.dosage || '',
+        stock: editingMed?.stock || 10,
+        expiryDate: editingMed?.expiryDate || '2027-12-31',
+        condition: editingMed?.condition || 'Baik',
+        location: editingMed?.location || 'Kotak P3K Utama'
+      });
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        onSave(formData);
+      };
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-100">
+            <div className="bg-slate-900 px-6 py-4 flex items-center justify-between text-white">
+              <h3 className="font-bold text-base flex items-center space-x-2">
+                <Icon name="pill" className="w-5 h-5 text-emerald-400" />
+                <span>{editingMed ? 'Edit Data Obat/Alkes' : 'Form Tambah Obat & Alkes'}</span>
+              </h3>
+              <button onClick={onClose} className="text-slate-400 hover:text-white">
+                <Icon name="x" className="w-5 h-5" />
+              </button>
+            </div>
+            <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs sm:text-sm">
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">Nama Obat / Alat Medis *</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                  placeholder="Contoh: Paracetamol 500mg"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Jenis *</label>
+                  <select
+                    value={formData.type}
+                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none bg-white"
+                  >
+                    <option value="Tablet">Tablet</option>
+                    <option value="Sirup">Sirup</option>
+                    <option value="Salep/Cair">Salep / Cair</option>
+                    <option value="Alat Medis">Alat Medis</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Dosis / Ukuran</label>
+                  <input
+                    type="text"
+                    value={formData.dosage}
+                    onChange={(e) => setFormData({ ...formData, dosage: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                    placeholder="Contoh: 500 mg / 100 ml"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Pabrik / Merk</label>
+                  <input
+                    type="text"
+                    value={formData.brand}
+                    onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                    placeholder="Contoh: Kimia Farma"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Jumlah Stok *</label>
+                  <input
+                    type="number"
+                    min="0"
+                    required
+                    value={formData.stock}
+                    onChange={(e) => setFormData({ ...formData, stock: Number(e.target.value) })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Tanggal Expired *</label>
+                  <input
+                    type="date"
+                    required
+                    value={formData.expiryDate}
+                    onChange={(e) => setFormData({ ...formData, expiryDate: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Kondisi Obat *</label>
+                  <select
+                    value={formData.condition}
+                    onChange={(e) => setFormData({ ...formData, condition: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none bg-white"
+                  >
+                    <option value="Baik">Baik</option>
+                    <option value="Rusak">Rusak</option>
+                    <option value="Expired">Expired</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">Lokasi Penyimpanan *</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.location}
+                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                  placeholder="Contoh: Lemari Obat A - Rak 2"
+                />
+              </div>
+
+              <div className="flex justify-end space-x-2 pt-4 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg font-semibold hover:bg-slate-50"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold shadow-sm"
+                >
+                  Simpan Obat
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      );
+    }
+
+    function BorrowModal({ item, onClose, onConfirm }) {
+      const [borrowerName, setBorrowerName] = useState('');
+      const [borrowerContact, setBorrowerContact] = useState('');
+      const [quantity, setQuantity] = useState(1);
+      const [returnPlan, setReturnPlan] = useState('2026-11-05');
+      const [notes, setNotes] = useState('');
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (quantity > item.stock) {
+          alert(`Jumlah pinjam (${quantity}) melebihi stok yang ada (${item.stock})!`);
+          return;
+        }
+        onConfirm({ borrowerName, borrowerContact, quantity, returnPlan, notes });
+      };
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-100">
+            <div className="bg-slate-900 px-6 py-4 flex items-center justify-between text-white">
+              <h3 className="font-bold text-base flex items-center space-x-2">
+                <Icon name="user-check" className="w-5 h-5 text-indigo-400" />
+                <span>Form Peminjaman Barang</span>
+              </h3>
+              <button onClick={onClose} className="text-slate-400 hover:text-white">
+                <Icon name="x" className="w-5 h-5" />
+              </button>
+            </div>
+            <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs sm:text-sm">
+              <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <span className="text-xs text-slate-500 font-semibold block">Barang Dipinjam:</span>
+                <span className="font-bold text-slate-800 text-base">{item.name}</span>
+                <span className="text-xs text-slate-500 block">Stok Tersedia: <strong>{item.stock}</strong> unit</span>
+              </div>
+
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">Nama Peminjam *</label>
+                <input
+                  type="text"
+                  required
+                  value={borrowerName}
+                  onChange={(e) => setBorrowerName(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                  placeholder="Contoh: Budi Santoso"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">No. HP / Kontak *</label>
+                  <input
+                    type="text"
+                    required
+                    value={borrowerContact}
+                    onChange={(e) => setBorrowerContact(e.target.value)}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                    placeholder="0812-xxxx-xxxx"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Jumlah Pinjam *</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max={item.stock}
+                    required
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">Rencana Tanggal Kembali *</label>
+                <input
+                  type="date"
+                  required
+                  value={returnPlan}
+                  onChange={(e) => setReturnPlan(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">Keperluan / Catatan</label>
+                <textarea
+                  rows="2"
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                  placeholder="Contoh: Untuk seminar divisi IT"
+                ></textarea>
+              </div>
+
+              <div className="flex justify-end space-x-2 pt-4 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg font-semibold hover:bg-slate-50"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold shadow-sm"
+                >
+                  Konfirmasi Peminjaman
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      );
+    }
+
+    function DistributeMedModal({ med, onClose, onConfirm }) {
+      const [recipientName, setRecipientName] = useState('');
+      const [quantity, setQuantity] = useState(1);
+      const [symptoms, setSymptoms] = useState('');
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (quantity > med.stock) {
+          alert(`Jumlah pemberian (${quantity}) melebihi stok obat (${med.stock})!`);
+          return;
+        }
+        onConfirm({ recipientName, quantity, symptoms });
+      };
+
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-100">
+            <div className="bg-slate-900 px-6 py-4 flex items-center justify-between text-white">
+              <h3 className="font-bold text-base flex items-center space-x-2">
+                <Icon name="pill" className="w-5 h-5 text-emerald-400" />
+                <span>Pencatatan Distribusi Obat / P3K</span>
+              </h3>
+              <button onClick={onClose} className="text-slate-400 hover:text-white">
+                <Icon name="x" className="w-5 h-5" />
+              </button>
+            </div>
+            <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs sm:text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <span className="text-xs text-emerald-700 font-semibold block">Obat / Alkes Diberikan:</span>
+                <span className="font-bold text-slate-800 text-base">{med.name}</span>
+                <span className="text-xs text-slate-600 block">Stok Tersedia: <strong>{med.stock}</strong> ({med.dosage})</span>
+              </div>
+
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">Diberikan Ke (Nama Penerima/Pasien) *</label>
+                <input
+                  type="text"
+                  required
+                  value={recipientName}
+                  onChange={(e) => setRecipientName(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                  placeholder="Contoh: Siti Aminah (Staf HR)"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">Jumlah Diberikan *</label>
+                <input
+                  type="number"
+                  min="1"
+                  max={med.stock}
+                  required
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-slate-700 mb-1">Keperluan / Keluhan Sakit *</label>
+                <textarea
+                  rows="2"
+                  required
+                  value={symptoms}
+                  onChange={(e) => setSymptoms(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                  placeholder="Contoh: Pusing kepala & pertolongan pertama P3K"
+                ></textarea>
+              </div>
+
+              <div className="flex justify-end space-x-2 pt-4 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg font-semibold hover:bg-slate-50"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold shadow-sm"
+                >
+                  Simpan Log Distribusi
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      );
+    }
+
+    // Render React App to DOM
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
